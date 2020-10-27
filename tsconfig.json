@@ -11,6 +11,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./dist",
     "baseUrl": ".",
     "types": [
       "webpack-env"
