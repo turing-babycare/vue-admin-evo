@@ -2,7 +2,7 @@ import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getToken } from './auth';
 // import { message, Modal } from 'ant-design-vue';
 
-interface Options {
+export interface RequestOptions {
   baseURL: string;
   $message: any;
   $modal: any;
@@ -11,20 +11,25 @@ interface Options {
 export default class Request {
   public axios: AxiosInstance;
 
-  constructor(public options: Options) {
-    this.axios = Axios.create({
+  constructor(options: RequestOptions) {
+    this.axios = this.init(options);
+  }
+
+  public init(options: RequestOptions) {
+    const axios = Axios.create({
       baseURL: options.baseURL
     });
-    this.axios.interceptors.request.use(config => {
+    this.axios = axios;
+    axios.interceptors.request.use(config => {
       const token = getToken();
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
       }
       return config;
     });
-    this.axios.interceptors.response.use(
+    axios.interceptors.response.use(
       response => {
-        return response;
+        return response.data;
       },
       error => {
         if (error.response) {
@@ -33,26 +38,26 @@ export default class Request {
           const msg = response.data['message'];
           error.message = msg;
           if (response.status === 401) {
-            this.options.$modal.warning({
+            options.$modal.warning({
               title: '登录超时',
               content: `登录超时，请重新登录`,
               onOk: () => {
-                this.options.$message.loading('跳转登录中...');
+                options.$message.loading('跳转登录中...');
               }
             });
           } else if (response.status === 500) {
-            this.options.$modal.error({
+            options.$modal.error({
               title: '操作失败',
               content: `${msg} [${traceId}]`
             });
           } else {
-            this.options.$modal.warning({
+            options.$modal.warning({
               title: '操作失败',
               content: `${msg} [${traceId}]`
             });
           }
         } else {
-          this.options.$modal.error({
+          options.$modal.error({
             title: '操作失败',
             content: `服务器连接失败: ${error.message}`
           });
@@ -61,6 +66,7 @@ export default class Request {
         return Promise.reject(error);
       }
     );
+    return axios;
   }
 
   async fetch(config: AxiosRequestConfig = {}) {

@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- <router-view /> -->
+    <router-link to="/">AAAA</router-link>
+    <router-link to="/child/b">BBBB</router-link>
+    <router-link to="/child/c">CCCC</router-link>
+    <admin-layout></admin-layout>
   </div>
 </template>
 <script>
