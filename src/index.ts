@@ -1,4 +1,5 @@
-import Test from './components/Test.vue';
+import AdminLayout from './components/layouts/admin-layout/AdminLayout.vue';
+import BlankLayout from './components/layouts/BlankLayout.vue';
 import Request from './utils/request';
 
-export { Test, Request };
+export { AdminLayout, BlankLayout, Request };

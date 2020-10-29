@@ -1,11 +1,11 @@
 import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getToken } from './auth';
-import { message, Modal } from 'ant-design-vue';
+// import { message, Modal } from 'ant-design-vue';
 
 interface Options {
   baseURL: string;
-  $message: typeof message;
-  $modal: typeof Modal;
+  $message: any;
+  $modal: any;
 }
 
 export default class Request {

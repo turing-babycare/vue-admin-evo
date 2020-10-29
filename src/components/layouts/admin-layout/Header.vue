@@ -1,5 +1,5 @@
 <template>
-  <div class="test">123</div>
+  <header class="header"></header>
 </template>
 <script lang="ts">
 import Vue from 'vue';
