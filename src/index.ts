@@ -11,6 +11,8 @@ function install(_Vue: typeof Vue, opt: BootstrapOptions) {
   _Vue.component(BlankLayout.name, BlankLayout);
 
   bootstrap(opt);
+
+  // test
 }
 
 export default { install };
