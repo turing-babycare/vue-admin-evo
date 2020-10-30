@@ -10,7 +10,7 @@
 import PageToggleTransition from '@/components/transition/PageToggleTransition';
 
 export default {
-  name: 'BlankView',
+  name: 'BlankLayout',
   components: { PageToggleTransition }
 };
 </script>

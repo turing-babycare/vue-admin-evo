@@ -38,6 +38,7 @@ import SideMenu from '@/components/menu/SideMenu';
 import BreadCrumb from '@/components/menu/BreadCrumb';
 import AdminHeader from './AdminHeader';
 export default {
+  name: 'AdminLayout',
   components: {
     SideMenu,
     AdminHeader,
