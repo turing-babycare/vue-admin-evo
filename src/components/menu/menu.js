@@ -184,10 +184,12 @@ export default {
     formatOptions(options, parentPath) {
       options.forEach(route => {
         // 若当前路由的path为 /开头，则说明为父节点
-        const isFullPath = route.path.substring(0, 1) == '/';
-        route.fullPath = isFullPath
-          ? route.path
-          : parentPath + '/' + route.path;
+        // const isFullPath = route.path.substring(0, 1) == '/';
+        console.log('parentPath=', parentPath);
+        route.fullPath = route.path;
+        // route.fullPath = isFullPath
+        //   ? route.path
+        //   : parentPath + '/' + route.path;
         if (route.children) {
           this.formatOptions(route.children, route.fullPath);
         }
