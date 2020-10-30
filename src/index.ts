@@ -4,6 +4,7 @@ import BlankLayout from './components/layouts/BlankLayout.vue';
 import Request from './utils/request';
 import bootstrap, { BootstrapOptions } from './utils/bootstrap';
 import client from './utils/client';
+import 'nprogress/nprogress.css';
 
 function install(_Vue: typeof Vue, opt: BootstrapOptions) {
   _Vue.component(AdminLayout.name, AdminLayout);

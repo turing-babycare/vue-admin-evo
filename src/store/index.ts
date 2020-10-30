@@ -7,7 +7,7 @@ interface UserInfo {
   [k: string]: string;
 }
 
-interface EvoState {
+export interface EvoState {
   userInfo: { [k: string]: string };
 }
 

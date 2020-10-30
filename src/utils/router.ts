@@ -1,12 +1,17 @@
 import { NavigationGuard, Route } from 'vue-router';
 import { getToken, setToken } from './auth';
+import client from './client';
+import { BootstrapOptions } from './bootstrap';
+import NProgress from 'nprogress';
+NProgress.configure({ showSpinner: false });
 
-export const before = (loginHost: string): NavigationGuard => (
+export const before = (options: BootstrapOptions): NavigationGuard => (
   to,
   from,
   next
 ) => {
   // console.log('before', to, from);
+  NProgress.start();
   const token = getToken();
   const queryToken = String(to.query.__token || '');
   if (queryToken) {
@@ -21,13 +26,16 @@ export const before = (loginHost: string): NavigationGuard => (
     });
   } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
     window.location.replace(
-      `${loginHost}?oauth_callback=${encodeURIComponent(
+      `${options.loginHost}?oauth_callback=${encodeURIComponent(
         window.location.origin + to.fullPath
       )}`
     );
   } else {
-    if (token) {
-      //todo: 如果store中没有userinfo就去getuserinfo
+    const userInfo = options.store.state.evo.userInfo;
+    if (token && !userInfo.token) {
+      client.get(options.userInfoPath as string, {}).then(res => {
+        options.store.commit('evo/setUserInfo', res);
+      });
     }
     next();
   }
@@ -35,5 +43,6 @@ export const before = (loginHost: string): NavigationGuard => (
 type afterHook = (to: Route, from: Route) => any;
 
 export const after = (): afterHook => (to, from) => {
+  NProgress.done();
   // console.log('after', { to, from });
 };

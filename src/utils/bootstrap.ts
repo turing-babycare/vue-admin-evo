@@ -1,14 +1,15 @@
 import Vuex, { Store } from 'vuex';
 import VueRouter from 'vue-router';
-import { evo } from '@/store';
+import { evo, EvoState } from '@/store';
 import { after, before } from './router';
 import { initClient } from './client';
 
 export interface BootstrapOptions {
   clientBaseURL: string;
   loginHost: string;
+  userInfoURL?: string;
   userInfoPath?: string;
-  store: Store<object>;
+  store: Store<{ evo: EvoState }>;
   router: VueRouter;
   $message: any;
   $modal: any;
@@ -21,6 +22,6 @@ export default function bootstrap(options: BootstrapOptions) {
     baseURL: options.clientBaseURL
   });
   options.store.registerModule('evo', evo);
-  options.router.beforeEach(before(options.loginHost));
+  options.router.beforeEach(before(options));
   options.router.afterEach(after());
 }

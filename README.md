@@ -2,7 +2,7 @@
 
 ##### URL 跳转回跳参数为 oauth_callback
 
-##### URL 带 token 参数为\_\_token
+##### URL 带 token 参数为 \_\_token
 
 ### 组件介绍
 
