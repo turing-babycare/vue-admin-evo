@@ -50,7 +50,7 @@ const routes = [
         },
         children: [
           {
-            path: 'b',
+            path: '/child/b',
             name: 'page-b',
             meta: {
               skipLogin: true,
@@ -59,7 +59,7 @@ const routes = [
             component: PageB
           },
           {
-            path: 'b/edit',
+            path: '/child/b/edit',
             name: 'page-b-edit',
             meta: {
               skipLogin: true,

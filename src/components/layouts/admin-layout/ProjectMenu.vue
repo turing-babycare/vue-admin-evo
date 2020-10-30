@@ -6,8 +6,8 @@
       @click="handleClick"
       style="box-shadow:none;"
     >
-      <a-menu-item :key="item.name" v-for="item in options">
-        <a :href="item.path" target="_blank">{{ item.name }}</a>
+      <a-menu-item :key="item.key" v-for="item in options">
+        <a :href="item.url" target="_blank">{{ item.text }}</a>
       </a-menu-item>
     </a-menu>
   </div>

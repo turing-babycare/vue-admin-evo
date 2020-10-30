@@ -6,13 +6,13 @@
         to="/"
         :class="['logo', isMobile ? null : 'pc', headerTheme]"
       >
-        <img width="32" :src="logoSrc || defaultLog" />
+        <img width="32" :src="defaultLog" />
         <h1 v-if="!isMobile">{{ systemName }}</h1>
       </router-link>
       <a-divider v-if="isMobile" type="vertical" />
       <div :class="['logo', theme]">
         <router-link to="/dashboard">
-          <img :src="logoSrc || defaultLog" />
+          <img :src="defaultLog" />
           <h1>{{ systemName }}</h1>
         </router-link>
       </div>
@@ -34,7 +34,7 @@
 </template>
 <script>
 import HeaderAvatar from './HeaderAvatar';
-import ProjectMenu from '@/components/menu/ProjectMenu';
+import ProjectMenu from '../ProjectMenu';
 export default {
   name: 'AdminHeader',
   components: { HeaderAvatar, ProjectMenu },
@@ -42,19 +42,6 @@ export default {
     collapsed: {
       type: Boolean,
       default: false
-    },
-    projectData: {
-      type: Array,
-      default: () => {
-        return [
-          { key: 'ask', text: '咨询', url: 'http://taobao.com' },
-          { key: 'system', text: '系统', url: 'http://baidu.com' }
-        ];
-      }
-    },
-    logoSrc: {
-      type: String,
-      default: ''
     },
     user: {
       type: Object,
@@ -82,12 +69,15 @@ export default {
   },
   data() {
     return {
-      defaultLog: require('@/assets/logo.png'),
+      defaultLog: '@/assets/logo.png',
       headerTheme: 'light',
       searchActive: false
     };
   },
   computed: {
+    projectData() {
+      return this.user.navigation || [];
+    },
     menuWidth() {
       const { layout, searchActive } = this;
       const headWidth = layout === 'head' ? '100% - 188px' : '100%';

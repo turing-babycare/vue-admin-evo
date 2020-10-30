@@ -1,13 +1,10 @@
-
-.admin-layout-content {
+// content
+.admin-layout-wrap {
   padding: 24px 24px 0;
-
-  /* overflow-x: hidden; */
-  // min-height: calc(100vh - 64px - 122px);
   min-height: calc(100vh - 64px - 10px);
 }
+// side
 .sider{
-  width: 256px !important;
   height: calc(100vh - 64px);
   background: #fff;
 }
@@ -17,7 +14,10 @@
 .side-menu{
   overflow-y: auto;
   z-index: 10;
+  max-width: 256px !important;
+  min-height: calc(100vh - 64px);
 }
+// 顶部菜单
 .current_project{
   margin: 20px 0 10px 20px;
   line-height: 24px;
@@ -27,6 +27,4 @@
   text-align: left;
   color: rgba(0, 0, 0, 0.85);
 }
-.menu{
-  padding: 0 0 16px;
-}
+
