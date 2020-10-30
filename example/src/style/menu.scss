@@ -1,0 +1,32 @@
+
+.admin-layout-content {
+  padding: 24px 24px 0;
+
+  /* overflow-x: hidden; */
+  // min-height: calc(100vh - 64px - 122px);
+  min-height: calc(100vh - 64px - 10px);
+}
+.sider{
+  width: 256px !important;
+  height: calc(100vh - 64px);
+  background: #fff;
+}
+.shadow{
+  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+.side-menu{
+  overflow-y: auto;
+  z-index: 10;
+}
+.current_project{
+  margin: 20px 0 10px 20px;
+  line-height: 24px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.85);
+}
+.menu{
+  padding: 0 0 16px;
+}

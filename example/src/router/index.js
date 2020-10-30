@@ -9,30 +9,68 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: 'cc',
+    name: 'page-cc',
+    meta: {
+      icon: 'form',
+      name: 'page-cc'
+    },
+    component: PageC
+  },
+  {
     path: '/',
     component: AdminLayout,
+    meta: {
+      name: '首页',
+      icon: ''
+    },
     children: [
       {
-        path: '',
+        path: 'page-a',
         name: 'page-a',
+        meta: {
+          icon: '',
+          name: 'page-a',
+          hidden: false,
+          skipLogin: false,
+          breadcrumb: undefined
+        },
         component: PageA
       },
       {
         path: 'child',
         name: 'child',
         component: BlankLayout,
+        meta: {
+          icon: '',
+          name: 'child'
+        },
         children: [
           {
             path: 'b',
             name: 'page-b',
+            meta: {
+              name: 'page-b'
+            },
             component: PageB
           },
           {
-            path: 'c',
-            name: 'page-c',
-            component: PageC
+            path: 'b/edit',
+            name: 'page-b-edit',
+            meta: {
+              name: 'page-b-edit'
+            },
+            component: PageB
           }
         ]
+      },
+      {
+        path: 'c',
+        name: 'page-c',
+        meta: {
+          name: 'page-c'
+        },
+        component: PageC
       }
     ]
   }
