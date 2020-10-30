@@ -8741,7 +8741,7 @@ function install(_Vue, opt) {
 
   _Vue.component(BlankLayout.name, BlankLayout);
 
-  bootstrap(opt);
+  bootstrap(opt); // test
 }
 
 /* harmony default export */ var src_0 = ({
