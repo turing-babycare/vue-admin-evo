@@ -8,16 +8,16 @@ interface UserInfo {
 }
 
 interface EvoState {
-  userinfo: { [k: string]: string };
+  userInfo: { [k: string]: string };
 }
 
 export const state: EvoState = {
-  userinfo: {}
+  userInfo: {}
 };
 
 export const mutations: MutationTree<EvoState> = {
   setUserInfo(state: EvoState, payload: UserInfo) {
-    state.userinfo = payload;
+    state.userInfo = payload;
   }
 };
 

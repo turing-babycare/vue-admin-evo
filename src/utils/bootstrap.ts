@@ -6,7 +6,7 @@ import { initClient } from './client';
 
 export interface BootstrapOptions {
   clientBaseURL: string;
-  loginURL: string;
+  loginHost: string;
   userInfoPath?: string;
   store: Store<object>;
   router: VueRouter;
@@ -21,6 +21,6 @@ export default function bootstrap(options: BootstrapOptions) {
     baseURL: options.clientBaseURL
   });
   options.store.registerModule('evo', evo);
-  options.router.beforeEach(before(options.loginURL));
+  options.router.beforeEach(before(options.loginHost));
   options.router.afterEach(after());
 }
