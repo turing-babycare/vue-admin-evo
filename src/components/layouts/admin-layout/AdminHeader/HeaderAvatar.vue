@@ -8,7 +8,13 @@
         shape="circle"
         :src="user.avatar"
       />
-      <span class="name" v-if="user.name">{{ user.name }}</span>
+      <span
+        class="name"
+        style="margin-left:14px;margin-right:10px;"
+        v-if="user.name"
+      >
+        {{ user.name }}
+      </span>
     </div>
     <a-menu :class="['avatar-menu']" slot="overlay">
       <a-menu-item>

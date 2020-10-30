@@ -24,11 +24,12 @@ const routes = [
     meta: {
       skipLogin: true,
       name: '首页',
+      hidden: true,
       icon: ''
     },
     children: [
       {
-        path: 'page-a',
+        path: '/page-a',
         name: 'page-a',
         meta: {
           icon: '',
@@ -40,13 +41,13 @@ const routes = [
         component: PageA
       },
       {
-        path: 'child',
+        path: '/child',
         name: 'child',
         component: BlankLayout,
         meta: {
           icon: '',
           skipLogin: true,
-          name: 'child'
+          name: '父子节点'
         },
         children: [
           {
@@ -54,29 +55,20 @@ const routes = [
             name: 'page-b',
             meta: {
               skipLogin: true,
-              name: 'page-b'
-            },
-            component: PageB
-          },
-          {
-            path: '/child/b/edit',
-            name: 'page-b-edit',
-            meta: {
-              skipLogin: true,
-              name: 'page-b-edit'
+              name: '咨询服务'
             },
             component: PageB
           }
+          // {
+          //   path: '/child/b/edit',
+          //   name: 'page-b-edit',
+          //   meta: {
+          //     skipLogin: true,
+          //     name: 'page-b-edit'
+          //   },
+          //   component: PageB
+          // }
         ]
-      },
-      {
-        path: 'c',
-        name: 'page-c',
-        meta: {
-          skipLogin: true,
-          name: 'page-c'
-        },
-        component: PageC
       }
     ]
   }

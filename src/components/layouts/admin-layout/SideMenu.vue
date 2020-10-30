@@ -2,6 +2,7 @@
   <div>
     <a-layout-sider
       theme="light"
+      width="256px"
       style="background: #fff"
       :class="['side-menu', 'beauty-scroll', 'shadow']"
       :collapsible="collapsible"
@@ -20,11 +21,13 @@
         :inline-collapsed="collapsed"
       >
         <template v-for="item in menuData">
-          <a-menu-item v-if="!item.children" :key="item.path">
+          <a-menu-item
+            v-if="!item.children && !item.meta.hidden"
+            :key="item.path"
+            @click="toMenu(item)"
+          >
             <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
-            <span v-if="item.meta.name" @click="toMenu(item)">
-              {{ item.meta.name }}</span
-            >
+            <span v-if="item.meta.name"> {{ item.meta.name }}</span>
           </a-menu-item>
           <sub-menu v-else :key="item.path" :menu-info="item" />
         </template>
@@ -66,7 +69,15 @@ export default {
       defaultSelectedKeys: []
     };
   },
+  created() {
+    this.setDefaultKey();
+  },
   methods: {
+    setDefaultKey() {
+      console.log(this.$route.path);
+      this.defaultOpenKeys.push(this.$route.path);
+      this.defaultSelectedKeys.push(this.$route.path);
+    },
     toMenu(item) {
       console.log('item==', item);
       if (item.path) {

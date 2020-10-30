@@ -1,18 +1,9 @@
 <template>
   <a-layout-header :class="[headerTheme, 'admin-header']">
     <div :class="['admin-header-wide', layout, pageWidth]">
-      <router-link
-        v-if="isMobile || layout === 'head'"
-        to="/"
-        :class="['logo', isMobile ? null : 'pc', headerTheme]"
-      >
-        <img width="32" :src="defaultLog" />
-        <h1 v-if="!isMobile">{{ systemName }}</h1>
-      </router-link>
-      <a-divider v-if="isMobile" type="vertical" />
       <div :class="['logo', theme]">
         <router-link to="/dashboard">
-          <img :src="defaultLog" />
+          <img :src="logoSrc" />
           <h1>{{ systemName }}</h1>
         </router-link>
       </div>
@@ -49,10 +40,6 @@ export default {
         return {};
       }
     },
-    isMobile: {
-      type: Boolean,
-      default: false
-    },
     layout: {
       type: String,
       default: 'side'
@@ -69,7 +56,8 @@ export default {
   },
   data() {
     return {
-      defaultLog: '@/assets/logo.png',
+      logoSrc:
+        'https://pic1.baobaohehu.com/fhs/admin/220201030170741232/1604048862832.png',
       headerTheme: 'light',
       searchActive: false
     };

@@ -60,7 +60,21 @@ export default {
       );
     },
     menuData() {
-      return this.$router.options.routes || [];
+      // 只隐藏当前路由
+      const allRoute = this.$router.options.routes || [];
+      const showRouter = [];
+      allRoute.forEach(item => {
+        if (item.children && item.children.length && item.meta.hidden) {
+          const childrenRoute = item.children;
+          childrenRoute.forEach(iitem => {
+            if (!iitem.meta.hidden) {
+              showRouter.push(iitem);
+            }
+          });
+        }
+      });
+      const menu = allRoute.concat(showRouter);
+      return menu;
     },
     breadcrumb() {
       const meta = this.$route.meta;
@@ -73,7 +87,7 @@ export default {
     }
   },
   created() {
-    console.log('this menuData', this.$router, this.$router.options.routes);
+    console.log('this menuData', this.$router.options.routes);
   },
   methods: {
     toggleCollapse() {

@@ -1,5 +1,5 @@
 <template>
-  <a-sub-menu :key="menuInfo.key">
+  <a-sub-menu v-if="!menuInfo.meta.hidden" :key="menuInfo.key">
     <span slot="title">
       <a-icon v-if="menuInfo.meta.icon" :type="menuInfo.meta.icon" />
       <span v-if="menuInfo.meta.name">{{ menuInfo.meta.name }}</span>
