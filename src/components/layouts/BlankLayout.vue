@@ -1,15 +1,18 @@
 <template>
-  <!-- TODO: 增加切换动画 -->
-  <div>
-    <router-view></router-view>
-    <a-layout>asdf</a-layout>
-  </div>
+  <page-toggle-transition :disabled="true">
+    <!-- :animate="animate.name"
+    :direction="animate.direction" -->
+    <router-view />
+  </page-toggle-transition>
 </template>
-<script lang="ts">
-// import Vue from 'vue'
-// export default Vue.extend({
-// })
+
+<script>
+import PageToggleTransition from '@/components/transition/PageToggleTransition';
+
 export default {
-  name: 'BlankLayout'
+  name: 'BlankView',
+  components: { PageToggleTransition }
 };
 </script>
+
+<style scoped></style>

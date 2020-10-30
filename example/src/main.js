@@ -5,6 +5,8 @@ import router from './router';
 import store from './store';
 import Evo from 'vue-admin-evo';
 import 'ant-design-vue/dist/antd.css';
+import './style/menu.scss';
+import './style/header.scss';
 
 Vue.config.productionTip = false;
 
