@@ -52,6 +52,7 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "vue-cli-service lint",
+      "vue-cli-service build --target lib ./src/index.ts",
       "git add"
     ]
   }
