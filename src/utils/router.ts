@@ -6,7 +6,7 @@ export const before = (loginHost: string): NavigationGuard => (
   from,
   next
 ) => {
-  console.log('before', to, from);
+  // console.log('before', to, from);
   const token = getToken();
   const queryToken = String(to.query.__token || '');
   if (queryToken) {
@@ -19,7 +19,7 @@ export const before = (loginHost: string): NavigationGuard => (
       query: to.query,
       params: to.params
     });
-  } else if (!token && (!to.meta || !to.meta.loginPage || !to.meta.skipLogin)) {
+  } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
     window.location.replace(
       `${loginHost}?oauth_callback=${encodeURIComponent(
         window.location.origin + to.fullPath
@@ -35,5 +35,5 @@ export const before = (loginHost: string): NavigationGuard => (
 type afterHook = (to: Route, from: Route) => any;
 
 export const after = (): afterHook => (to, from) => {
-  console.log('after', { to, from });
+  // console.log('after', { to, from });
 };
