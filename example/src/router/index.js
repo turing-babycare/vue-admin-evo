@@ -9,10 +9,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: 'cc',
+    path: '/cc',
     name: 'page-cc',
     meta: {
       icon: 'form',
+      skipLogin: true,
       name: 'page-cc'
     },
     component: PageC
@@ -21,56 +22,53 @@ const routes = [
     path: '/',
     component: AdminLayout,
     meta: {
+      skipLogin: true,
       name: '首页',
+      hidden: true,
       icon: ''
     },
     children: [
       {
-        path: 'page-a',
+        path: '/page-a',
         name: 'page-a',
         meta: {
           icon: '',
           name: 'page-a',
           hidden: false,
-          skipLogin: false,
+          skipLogin: true,
           breadcrumb: undefined
         },
         component: PageA
       },
       {
-        path: 'child',
+        path: '/child',
         name: 'child',
         component: BlankLayout,
         meta: {
           icon: '',
-          name: 'child'
+          skipLogin: true,
+          name: '父子节点'
         },
         children: [
           {
-            path: 'b',
+            path: '/child/b',
             name: 'page-b',
             meta: {
-              name: 'page-b'
-            },
-            component: PageB
-          },
-          {
-            path: 'b/edit',
-            name: 'page-b-edit',
-            meta: {
-              name: 'page-b-edit'
+              skipLogin: true,
+              name: '咨询服务'
             },
             component: PageB
           }
+          // {
+          //   path: '/child/b/edit',
+          //   name: 'page-b-edit',
+          //   meta: {
+          //     skipLogin: true,
+          //     name: 'page-b-edit'
+          //   },
+          //   component: PageB
+          // }
         ]
-      },
-      {
-        path: 'c',
-        name: 'page-c',
-        meta: {
-          name: 'page-c'
-        },
-        component: PageC
       }
     ]
   }

@@ -1,4 +1,4 @@
-.ant-layout-header{
+::v-deep.ant-layout-header{
   background: #fff;
 }
 .admin-layout-main {
@@ -21,7 +21,7 @@
   text-align: left;
   color: rgba(0, 0, 0, 0.85);
 }
-.admin-header{
+::v-deep.admin-header{
   position: relative;
   padding: 0;
   background: #fff;

@@ -10,7 +10,6 @@
       ]"
       :style="headerStyle"
       :user="user"
-      :projectData="projectData"
       :collapsed="collapsed"
       @toggleCollapse="toggleCollapse"
     />
@@ -21,7 +20,7 @@
         :collapsed="collapsed"
         :collapsible="true"
       ></SideMenu>
-      <a-layout class="admin-layout-main beauty-scroll">
+      <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
           <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
           <div class="admin-layout-content">
@@ -34,8 +33,8 @@
 </template>
 
 <script>
-import SideMenu from '@/components/menu/SideMenu';
-import BreadCrumb from '@/components/menu/BreadCrumb';
+import SideMenu from './SideMenu';
+import BreadCrumb from '@/components/BreadCrumb';
 import AdminHeader from './AdminHeader';
 export default {
   name: 'AdminLayout',
@@ -60,37 +59,39 @@ export default {
         }
       );
     },
-    projectData() {
-      return this.$store.state.account.user.navigation || [];
-    },
     menuData() {
-      return this.$router.options.routes || [];
+      // 只隐藏当前路由
+      const allRoute = this.$router.options.routes || [];
+      const showRouter = [];
+      allRoute.forEach(item => {
+        if (item.children && item.children.length && item.meta.hidden) {
+          const childrenRoute = item.children;
+          childrenRoute.forEach(iitem => {
+            if (!iitem.meta.hidden) {
+              showRouter.push(iitem);
+            }
+          });
+        }
+      });
+      const menu = allRoute.concat(showRouter);
+      return menu;
     },
     breadcrumb() {
       const meta = this.$route.meta;
       const breadcrumb = meta && meta.breadcrumb;
-      if (breadcrumb && breadcrumb.length) {
+      if (breadcrumb?.length) {
         return breadcrumb;
       } else {
-        return this.getRouteBreadcrumb();
+        return this.$route.matched;
       }
     }
   },
   created() {
-    console.log('this menuData', this.$router, this.$router.options.routes);
+    console.log('this menuData', this.$router.options.routes);
   },
   methods: {
     toggleCollapse() {
       this.collapsed = !this.collapsed;
-    },
-    getRouteBreadcrumb() {
-      const routes = this.$route.matched;
-      const breadcrumb = [];
-      routes.forEach(route => {
-        // const path = route.path.length === 0 ? '/' : route.path;
-        breadcrumb.push(route);
-      });
-      return breadcrumb;
     }
   }
 };
@@ -103,5 +104,11 @@ export default {
   margin: 0;
   min-height: '480px';
   height: calc(100vh - 64px);
+}
+.admin-layout-wrap {
+  padding: 16px;
+  .admin-layout-content {
+    margin-top: 16px;
+  }
 }
 </style>
