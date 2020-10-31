@@ -9,10 +9,10 @@
       v-model="collapsed"
       :trigger="null"
     >
-      <div v-if="!collapsed" class="current_project">
+      <div v-if="!collapsed" class="app_name_box">
         {{ appName }}
       </div>
-      <a-divider />
+      <a-divider v-if="appName" />
       <a-menu
         :default-selected-keys="defaultSelectedKeys"
         :default-open-keys="defaultOpenKeys"
@@ -74,12 +74,10 @@ export default {
   },
   methods: {
     setDefaultKey() {
-      console.log(this.$route.path);
       this.defaultOpenKeys.push(this.$route.path);
       this.defaultSelectedKeys.push(this.$route.path);
     },
     toMenu(item) {
-      console.log('item==', item);
       if (item.path) {
         this.$router.push({ path: item.path });
       }
@@ -88,17 +86,30 @@ export default {
 };
 </script>
 <style lang="scss">
+// content
+.admin-layout-wrap {
+  padding: 24px 24px 0;
+  min-height: calc(100vh - 64px - 10px);
+}
+.sider {
+  height: calc(100vh - 64px);
+  background: #fff;
+}
 .shadow {
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 }
-::v-deep.side-menu {
+.side-menu {
   overflow-y: auto;
   max-width: 256px !important;
   min-height: calc(100vh - 64px);
-  height: 100%;
-  z-index: 10;
-  .ant-layout-sider-children {
-    //
+  .app_name_box {
+    margin: 20px 0 10px 20px;
+    line-height: 24px;
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.85);
   }
 }
 </style>

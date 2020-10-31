@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib ./src/index.ts && git add . && git commit",
+    "build": "vue-cli-service build --target lib ./src/index.ts",
+    "publish": "vue-cli-service build --target lib ./src/index.ts && git add . && git commit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

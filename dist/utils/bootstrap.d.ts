@@ -4,6 +4,7 @@ import { EvoState } from '@/store';
 export interface BootstrapOptions {
     clientBaseURL: string;
     loginHost: string;
+    logoutURL?: string;
     userInfoURL?: string;
     userInfoPath?: string;
     store: Store<{

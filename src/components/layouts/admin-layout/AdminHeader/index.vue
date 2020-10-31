@@ -1,8 +1,8 @@
 <template>
-  <a-layout-header :class="[headerTheme, 'admin-header']">
-    <div :class="['admin-header-wide', layout, pageWidth]">
+  <a-layout-header class="admin-header">
+    <div :class="['admin-header-wide', 'fixed']">
       <div :class="['logo', theme]">
-        <router-link to="/dashboard">
+        <router-link to="/">
           <img :src="logoSrc" />
           <h1>{{ systemName }}</h1>
         </router-link>
@@ -40,45 +40,22 @@ export default {
         return {};
       }
     },
-    layout: {
-      type: String,
-      default: 'side'
-    },
     systemName: {
       type: String,
       default: '家庭健康服务平台'
-    },
-    pageWidth: {
-      // 内容区域宽度，fixed:固定宽度，fluid:流式宽度
-      type: String,
-      default: 'fixed'
     }
   },
   data() {
     return {
+      layout: 'side',
       logoSrc:
         'https://pic1.baobaohehu.com/fhs/admin/220201030170741232/1604048862832.png',
-      headerTheme: 'light',
-      searchActive: false
+      headerTheme: 'light'
     };
   },
   computed: {
     projectData() {
       return this.user.navigation || [];
-    },
-    menuWidth() {
-      const { layout, searchActive } = this;
-      const headWidth = layout === 'head' ? '100% - 188px' : '100%';
-      const extraWidth = searchActive ? '600px' : '400px';
-      return `calc(${headWidth} - ${extraWidth})`;
-    }
-  },
-  watch: {
-    user: {
-      handler() {
-        console.log('user=======', this.user);
-      },
-      immediate: true
     }
   },
   methods: {
@@ -88,7 +65,82 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import 'index';
+<style lang="scss" scope>
+.admin-header {
+  position: relative;
+  padding: 0;
+  background: #fff;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  .admin-header-wide {
+    padding-left: 24px;
+    &.head.fixed {
+      margin: auto;
+      padding-left: 0;
+      max-width: 1400px;
+    }
+    &.side {
+      padding-right: 12px;
+    }
+    .logo {
+      display: inline-block;
+      padding: 0 12px 0 24px;
+      height: 64px;
+      line-height: 58px;
+      font-size: 20px;
+      color: inherit;
+      vertical-align: top;
+      cursor: pointer;
+      &.pc {
+        padding: 0 12px 0 0;
+      }
+      img {
+        width: 32px;
+        vertical-align: middle;
+      }
+      h1 {
+        display: inline-block;
+        font-size: 16px;
+        color: inherit;
+      }
+    }
+    .trigger {
+      padding: 0 24px;
+      line-height: 64px;
+      font-size: 20px;
+      transition: color 0.3s;
+      cursor: pointer;
+      &:hover {
+        // @primary-color
+        color: #1890ff;
+      }
+    }
+    .admin-header-menu {
+      display: inline-block;
+      .head-menu {
+        max-height: 65px;
+        line-height: 65px;
+        box-shadow: none;
+        vertical-align: middle;
+      }
+    }
+    .admin-header-right {
+      display: flex;
+      float: right;
+      color: inherit;
+      .header-item {
+        padding: 0 12px;
+        color: inherit;
+        cursor: pointer;
+        align-self: center;
+        a {
+          color: inherit;
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

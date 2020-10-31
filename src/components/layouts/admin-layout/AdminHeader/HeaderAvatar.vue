@@ -3,17 +3,13 @@
     <div class="header-avatar" style="cursor: pointer">
       <a-avatar
         class="avatar"
-        v-if="user.avatar"
         size="small"
+        :icon="!user || !user.avatar ? 'user' : ''"
         shape="circle"
-        :src="user.avatar"
+        :src="user && user.avatar ? user.avatar : ''"
       />
-      <span
-        class="name"
-        style="margin-left:14px;margin-right:10px;"
-        v-if="user.name"
-      >
-        {{ user.name }}
+      <span class="name" style="margin-left:14px;margin-right:10px;">
+        {{ user.name || '未知' }}
       </span>
     </div>
     <a-menu :class="['avatar-menu']" slot="overlay">
@@ -35,6 +31,9 @@
 </template>
 
 <script>
+import client from '../../../../utils/client';
+import { removeToken } from '../../../../utils/auth';
+import { getOptions } from '../../../../utils/options';
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -51,6 +50,9 @@ export default {
   methods: {
     logoutHandle() {
       console.log('logout .......');
+      client.get(getOptions.logoutURL, {}).then(() => {
+        removeToken();
+      });
     }
   }
 };

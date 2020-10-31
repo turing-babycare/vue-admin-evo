@@ -9,7 +9,7 @@
         }
       ]"
       :style="headerStyle"
-      :user="user"
+      :user="userInfo"
       :collapsed="collapsed"
       @toggleCollapse="toggleCollapse"
     />
@@ -19,12 +19,14 @@
         :menuData="menuData"
         :collapsed="collapsed"
         :collapsible="true"
+        :appName="appName"
       ></SideMenu>
       <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
           <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
           <div class="admin-layout-content">
             <router-view></router-view>
+            <p v-show="false" class="build_id">{{ buildId }}</p>
           </div>
         </a-layout-content>
       </a-layout>
@@ -37,6 +39,13 @@ import SideMenu from './SideMenu';
 import BreadCrumb from '@/components/BreadCrumb';
 import AdminHeader from './AdminHeader';
 export default {
+  props: {
+    appName: {
+      type: String,
+      require,
+      default: ''
+    }
+  },
   name: 'AdminLayout',
   components: {
     SideMenu,
@@ -50,31 +59,18 @@ export default {
     };
   },
   computed: {
-    user() {
-      return (
-        this.$store.state.account.user || {
-          name: 'wyf',
-          avatar:
-            'https://static-legacy.dingtalk.com/media/lADPAuoR6HXIEnXNA3LNA3I_882_882.jpg'
-        }
-      );
+    buildId() {
+      return process.env.VUE_APP_BUILD_ID;
+    },
+    userInfo() {
+      return this.$store.state.evo.userInfo;
     },
     menuData() {
       // 只隐藏当前路由
       const allRoute = this.$router.options.routes || [];
-      const showRouter = [];
-      allRoute.forEach(item => {
-        if (item.children && item.children.length && item.meta.hidden) {
-          const childrenRoute = item.children;
-          childrenRoute.forEach(iitem => {
-            if (!iitem.meta.hidden) {
-              showRouter.push(iitem);
-            }
-          });
-        }
-      });
-      const menu = allRoute.concat(showRouter);
-      return menu;
+      const showRouter = this.setMenu(allRoute);
+      // const menu = allRoute.concat(showRouter);
+      return showRouter;
     },
     breadcrumb() {
       const meta = this.$route.meta;
@@ -86,10 +82,27 @@ export default {
       }
     }
   },
-  created() {
-    console.log('this menuData', this.$router.options.routes);
-  },
   methods: {
+    setMenu(menuArr) {
+      const menuData = [];
+      menuArr.forEach(item => {
+        if (item.children?.length && item.meta.hidden) {
+          const childrenRoute = item.children;
+          console.log('childrenRoute', childrenRoute);
+          childrenRoute.forEach(iitem => {
+            if (!iitem.meta.hidden) {
+              menuData.push(iitem);
+            }
+            if (iitem && item.meta.hidden && iitem.children) {
+              this.setMenu(iitem.children);
+            }
+          });
+        } else {
+          menuData.push(item);
+        }
+      });
+      return menuData;
+    },
     toggleCollapse() {
       this.collapsed = !this.collapsed;
     }
@@ -97,18 +110,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.content {
-  background: '#fff';
-  padding: '24px';
-  margin: 0;
-  min-height: '480px';
-  height: calc(100vh - 64px);
-}
+<style lang="scss">
 .admin-layout-wrap {
   padding: 16px;
   .admin-layout-content {
     margin-top: 16px;
   }
+}
+.build_id {
+  position: fixed;
+  right: 10px;
+  bottom: 2px;
 }
 </style>
