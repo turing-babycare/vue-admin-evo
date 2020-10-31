@@ -93,7 +93,7 @@ export default {
             if (!iitem.meta.hidden) {
               menuData.push(iitem);
             }
-            if (iitem && item.meta.hidden && iitem.children) {
+            if (iitem && iitem.children) {
               this.setMenu(iitem.children);
             }
           });

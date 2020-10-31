@@ -7299,7 +7299,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"74f25d63-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/layouts/admin-layout/AdminLayout.vue?vue&type=template&id=c5cf8b2e&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"74f25d63-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/layouts/admin-layout/AdminLayout.vue?vue&type=template&id=008a8e01&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('a-layout',{staticClass:"layout",class:['admin-layout', 'beauty-scroll']},[_c('AdminHeader',{class:[
       {
         'fixed-tabs': _vm.fixedTabs,
@@ -7310,7 +7310,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/layouts/admin-layout/AdminLayout.vue?vue&type=template&id=c5cf8b2e&
+// CONCATENATED MODULE: ./src/components/layouts/admin-layout/AdminLayout.vue?vue&type=template&id=008a8e01&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__("4160");
@@ -8385,7 +8385,7 @@ AdminHeader.install = function (Vue) {
   },
   computed: {
     buildId: function buildId() {
-      return "Sat Oct 31 2020 14:58:12 GMT+0800 (GMT+08:00)";
+      return "Sat Oct 31 2020 18:32:16 GMT+0800 (GMT+08:00)";
     },
     userInfo: function userInfo() {
       return this.$store.state.evo.userInfo;
@@ -8424,7 +8424,7 @@ AdminHeader.install = function (Vue) {
               menuData.push(iitem);
             }
 
-            if (iitem && item.meta.hidden && iitem.children) {
+            if (iitem && iitem.children) {
               _this.setMenu(iitem.children);
             }
           });
