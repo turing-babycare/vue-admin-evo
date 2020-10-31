@@ -86,7 +86,7 @@ export default {
     setMenu(menuArr) {
       const menuData = [];
       menuArr.forEach(item => {
-        if (item.children?.length && item.meta.hidden) {
+        if (item.children?.length && !!item.meta.hidden) {
           const childrenRoute = item.children;
           console.log('childrenRoute', childrenRoute);
           childrenRoute.forEach(iitem => {
