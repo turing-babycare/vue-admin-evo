@@ -55,6 +55,7 @@ export default {
   data() {
     return {
       collapsed: false,
+      showMenu: [],
       list: []
     };
   },
@@ -84,24 +85,30 @@ export default {
   },
   methods: {
     setMenu(menuArr) {
-      const menuData = [];
       menuArr.forEach(item => {
-        if (item.children?.length && !item.meta.hidden) {
-          const childrenRoute = item.children;
-
-          childrenRoute.forEach(iitem => {
-            if (!iitem.meta.hidden) {
-              menuData.push(iitem);
-            }
-            if (iitem && item.meta.hidden && iitem.children) {
-              this.setMenu(iitem.children);
+        const meta = item.meta;
+        // 若当前项，meta.hidden不为true
+        if (meta && !meta.hidden) {
+          this.showMenu.push(item);
+        } else if (meta && meta.hidden && item.children?.length) {
+          // 若当前项 meta.hidden:true ,且存在children项
+          // this.showMenu.push(item);
+          const unhide = item.children.find(iitem => {
+            if (iitem.meta && !iitem.meta.hidden) {
+              // push children中meta.hidden不为true的那一项
+              this.showMenu.push(iitem);
+            } else {
+              // 返回子项中meta.hidden为true的项，去递归判断子项
+              return iitem;
             }
           });
-        } else {
-          menuData.push(item);
+          if (unhide && unhide.children?.length) {
+            this.setMenu(unhide.children);
+          }
         }
       });
-      return menuData;
+      console.log('menuData==', this.showMenu);
+      return this.showMenu;
     },
     toggleCollapse() {
       this.collapsed = !this.collapsed;
