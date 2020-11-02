@@ -1,7 +1,6 @@
 {
   "name": "vue-admin-evo",
   "version": "1.0.1",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib ./src/index.ts",
