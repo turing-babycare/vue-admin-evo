@@ -1,7 +1,7 @@
 <template>
   <a-sub-menu
     v-if="!menuInfo.meta.hidden"
-    :key="item.redirect ? item.redirect : item.path"
+    :key="menuInfo.redirect ? menuInfo.redirect : menuInfo.path"
   >
     <span slot="title" @click="toPath">
       <a-icon v-if="menuInfo.meta.icon" :type="menuInfo.meta.icon" />

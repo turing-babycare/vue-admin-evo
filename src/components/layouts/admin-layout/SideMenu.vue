@@ -94,7 +94,7 @@ export default {
         // 判断改父节点下是否所有子项都为hidden
         let childrenShow = [];
         if (item.children?.length) {
-          childrenShow = this._.filter(item.children, function(o) {
+          childrenShow = item.children.filter(function(o) {
             return !o.meta.hidden;
           });
         }
@@ -102,9 +102,9 @@ export default {
           item.children = [];
         }
       });
+      console.log(222222, this.showMenu);
     },
     setDefaultKey() {
-      console.log(this.$route);
       this.defaultOpenKeys.push(this.$route.path);
       this.defaultSelectedKeys.push(this.$route.path);
     },
