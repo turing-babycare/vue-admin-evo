@@ -20,10 +20,14 @@
         theme="light"
         :inline-collapsed="collapsed"
       >
-        <template v-for="item in menuData">
+        <template v-for="item in showMenu">
           <a-menu-item
-            v-if="!item.children && !item.meta.hidden"
-            :key="item.path"
+            v-if="
+              (!item.children || item.children.length === 0) &&
+                item.meta &&
+                !item.meta.hidden
+            "
+            :key="item.redirect ? item.redirect : item.path"
             @click="toMenu(item)"
           >
             <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
@@ -65,15 +69,42 @@ export default {
   },
   data() {
     return {
+      showMenu: [],
       defaultOpenKeys: [],
       defaultSelectedKeys: []
     };
+  },
+  watch: {
+    menuData: {
+      handler(val) {
+        if (val) {
+          this.ifChildAllHidden();
+        }
+      },
+      immediate: true
+    }
   },
   created() {
     this.setDefaultKey();
   },
   methods: {
+    ifChildAllHidden() {
+      this.showMenu = this.menuData.concat([]);
+      this.showMenu.forEach(item => {
+        // 判断改父节点下是否所有子项都为hidden
+        let childrenShow = [];
+        if (item.children?.length) {
+          childrenShow = this._.filter(item.children, function(o) {
+            return !o.meta.hidden;
+          });
+        }
+        if (childrenShow.length === 0) {
+          item.children = [];
+        }
+      });
+    },
     setDefaultKey() {
+      console.log(this.$route);
       this.defaultOpenKeys.push(this.$route.path);
       this.defaultSelectedKeys.push(this.$route.path);
     },
