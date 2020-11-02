@@ -3,7 +3,7 @@
     <div class="header-avatar" style="cursor: pointer">
       <a-avatar
         class="avatar"
-        size="small"
+        size="large"
         :icon="!user || !user.avatar ? 'user' : ''"
         shape="circle"
         :src="user && user.avatar ? user.avatar : ''"
