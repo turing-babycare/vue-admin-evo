@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 14
+  - 12
 cache:
   yarn: true
 install:
@@ -9,8 +9,8 @@ script:
   - yarn build
 deploy:
   provider: npm
-  email: "$NPM_EMAIL"
-  api_token: "$NPM_TOKEN"
+  email: '$NPM_EMAIL'
+  api_token: '$NPM_TOKEN'
   skip_cleanup: true
   on:
     tags: true
