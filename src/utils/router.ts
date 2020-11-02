@@ -1,6 +1,7 @@
 import { NavigationGuard, Route } from 'vue-router';
 import { getToken, setToken } from './auth';
 import client from './client';
+import { socket, connectSocket } from './ws';
 import { BootstrapOptions } from './bootstrap';
 import NProgress from 'nprogress';
 NProgress.configure({ showSpinner: false });
@@ -34,8 +35,11 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   } else {
     const userInfo = options.store.state.evo.userInfo;
     if (token && !userInfo.token) {
-      client.get(options.userInfoPath as string, {}).then(res => {
+      client.get(options.userInfoPath as string, {}).then((res: any) => {
         options.store.commit('evo/setUserInfo', res);
+        if (!socket) {
+          connectSocket({ ...res.ws_token, url: options.wsBaseURL });
+        }
       });
     }
     next();

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import { EvoState } from '@/store';
 export interface BootstrapOptions {
     clientBaseURL: string;
+    wsBaseURL: string;
     loginHost: string;
     logoutURL?: string;
     userInfoURL?: string;

@@ -3,9 +3,10 @@ import VueRouter from 'vue-router';
 import { evo, EvoState } from '@/store';
 import { after, before } from './router';
 import { initClient } from './client';
-import { setOptions } from './options';
+import { set } from './options';
 export interface BootstrapOptions {
   clientBaseURL: string;
+  wsBaseURL: string;
   loginHost: string;
   logoutURL?: string;
   userInfoURL?: string;
@@ -17,7 +18,8 @@ export interface BootstrapOptions {
 }
 
 export default function bootstrap(options: BootstrapOptions) {
-  setOptions(options);
+  set('options', options);
+
   initClient({
     $message: options.$message,
     $modal: options.$modal,

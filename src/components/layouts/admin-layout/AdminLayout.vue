@@ -78,6 +78,7 @@ export default {
       if (breadcrumb?.length) {
         return breadcrumb;
       } else {
+        console.log(this.$route.matched);
         return this.$route.matched;
       }
     }
@@ -120,7 +121,7 @@ export default {
 .admin-layout-wrap {
   padding: 16px;
   .admin-layout-content {
-    margin-top: 16px;
+    margin-top: 28px;
   }
 }
 .build_id {

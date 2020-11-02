@@ -4,6 +4,7 @@ import BlankLayout from './components/layouts/BlankLayout.vue';
 import Request from './utils/request';
 import bootstrap, { BootstrapOptions } from './utils/bootstrap';
 import client from './utils/client';
+import { socket } from './utils/ws';
 import 'nprogress/nprogress.css';
 
 function install(_Vue: typeof Vue, opt: BootstrapOptions) {
@@ -17,4 +18,4 @@ function install(_Vue: typeof Vue, opt: BootstrapOptions) {
 
 export default { install };
 
-export { AdminLayout, BlankLayout, Request, client };
+export { AdminLayout, BlankLayout, Request, client, socket };

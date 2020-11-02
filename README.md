@@ -3,7 +3,9 @@
 ##### URL 跳转回跳参数为 oauth_callback
 
 ##### URL 带 token 参数为 \_\_token
+
 ##### 路由约定
+
 ```
       {
         path: '/page-a',
@@ -24,13 +26,15 @@
 ### 组件介绍
 
 ```
-export { AdminLayout, BlankLayout, Request, client };
+export { AdminLayout, BlankLayout, Request, client, socket };
 ```
 
 ##### AdminLayout、BlankLayout 为框架级组件
 
 ##### AdminLayout 带头部导航和左侧菜单,
-###### 需要传入appName，表示当前项目名称
+
+###### 需要传入 appName，表示当前项目名称
+
 ```
   props: {
     appName: {
@@ -41,12 +45,11 @@ export { AdminLayout, BlankLayout, Request, client };
   },
 ```
 
-
 ##### BlankLayout 为空白页面
 
 ---
 
-##### client 是实例化后的 Request，可以直接使用，如需特殊需求，使用 Request 自行封装
+##### client 是实例化后的 Axios，可以直接使用，如需特殊需求，使用 Request 自行封装
 
 ```
 import { client } from 'vue-admin-evo';
@@ -59,9 +62,36 @@ async function getData() {
 
 ---
 
+##### socket 是实例化后的 socket.io 客户端
+
+```
+import { socket } from 'vue-admin-evo';
+
+socket.on('name', res => {
+  console.log(res)
+})
+```
+
+---
+
 ##### 自动注入名为 `evo` 的 Module
 
 ```
+export interface UserInfo {
+  ws_token: { ns: string; token: string };
+  avatar: string;
+  id: number;
+  navigation: {
+    key: string;
+    text: string;
+    url: string;
+  }[];
+  token: string;
+}
+
+export interface EvoState {
+  userInfo: UserInfo;
+}
 state: {
   userInfo: {}
 }
@@ -89,6 +119,7 @@ Vue.use(Evo, {
   logoutURL: '/logout',
   loginHost: 'http://baidu.com', // 登陆项目域名
   clientBaseURL: 'https://api-v3.baobaohehu.com', // 接口根域名
+  wsBaseURL: 'https://ws.baobaohehu.com', // socket 域名
   userInfoPath?: '/login'; // 用户信息接口（使用同退出登录接口）
   $message: Vue.prototype.$message, // message组件
   $modal: Modal // modal组件

@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import client from '../../../../utils/client';
-import { removeToken } from '../../../../utils/auth';
-import { getOptions } from '../../../../utils/options';
+import client from '@/utils/client';
+import { removeToken } from '@/utils/auth';
+import { get } from '@/utils/options';
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -49,8 +49,8 @@ export default {
   },
   methods: {
     logoutHandle() {
-      console.log('logout .......');
-      client.get(getOptions.logoutURL, {}).then(() => {
+      const logoutURL = get('options').logoutURL;
+      client.get(logoutURL).then(() => {
         removeToken();
       });
     }
