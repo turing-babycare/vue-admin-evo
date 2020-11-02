@@ -1,3 +1,2 @@
-import { BootstrapOptions } from './bootstrap';
-export declare function getOptions(): {};
-export declare function setOptions(v: BootstrapOptions): void;
+export declare function set(key: string, val: any): void;
+export declare function get(key: string): any;

@@ -69,7 +69,6 @@ export default {
       // 只隐藏当前路由
       const allRoute = this.$router.options.routes || [];
       const showRouter = this.setMenu(allRoute);
-      // const menu = allRoute.concat(showRouter);
       return showRouter;
     },
     breadcrumb() {
@@ -78,6 +77,7 @@ export default {
       if (breadcrumb?.length) {
         return breadcrumb;
       } else {
+        console.log(this.$route.matched);
         return this.$route.matched;
       }
     }
@@ -86,9 +86,9 @@ export default {
     setMenu(menuArr) {
       const menuData = [];
       menuArr.forEach(item => {
-        if (item.children?.length && item.meta.hidden) {
+        if (item.children?.length && !item.meta.hidden) {
           const childrenRoute = item.children;
-          console.log('childrenRoute', childrenRoute);
+
           childrenRoute.forEach(iitem => {
             if (!iitem.meta.hidden) {
               menuData.push(iitem);
@@ -114,7 +114,7 @@ export default {
 .admin-layout-wrap {
   padding: 16px;
   .admin-layout-content {
-    margin-top: 16px;
+    margin-top: 28px;
   }
 }
 .build_id {

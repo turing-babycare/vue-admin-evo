@@ -1,9 +1,9 @@
-let options = {};
-import { BootstrapOptions } from './bootstrap';
-export function getOptions() {
-  return options;
+const globalData = {} as { [key: string]: any };
+
+export function set(key: string, val: any) {
+  globalData[key] = val;
 }
 
-export function setOptions(v: BootstrapOptions) {
-  options = v;
+export function get(key: string) {
+  return globalData[key];
 }

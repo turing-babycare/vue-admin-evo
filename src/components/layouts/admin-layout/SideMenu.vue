@@ -78,7 +78,7 @@ export default {
       this.defaultSelectedKeys.push(this.$route.path);
     },
     toMenu(item) {
-      if (item.path) {
+      if (item.path && this.$route.path !== item.path) {
         this.$router.push({ path: item.path });
       }
     }
@@ -102,11 +102,11 @@ export default {
   overflow-y: auto;
   max-width: 256px !important;
   min-height: calc(100vh - 64px);
+
   .app_name_box {
-    margin: 20px 0 10px 20px;
+    padding: 24px 0 0px 20px;
     line-height: 24px;
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
     text-align: left;
     color: rgba(0, 0, 0, 0.85);

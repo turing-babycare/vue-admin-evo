@@ -3,7 +3,7 @@
     <a-breadcrumb>
       <a-breadcrumb-item :key="index" v-for="(item, index) in breadcrumb">
         <span v-if="item.meta && !item.meta.breadHidden">
-          <router-link v-if="item.meta.name" :to="item.path">
+          <router-link v-if="item.meta.name" :to="item.path || '/'">
             <span> {{ item.meta.name }}</span>
           </router-link>
         </span>
