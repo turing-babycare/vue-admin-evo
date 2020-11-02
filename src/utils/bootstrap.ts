@@ -3,11 +3,10 @@ import VueRouter from 'vue-router';
 import { evo, EvoState } from '@/store';
 import { after, before } from './router';
 import { initClient } from './client';
-import { connectSocket, closeSocket } from './ws';
 import { set } from './options';
 export interface BootstrapOptions {
   clientBaseURL: string;
-  socketBaseURL: string;
+  wsBaseURL: string;
   loginHost: string;
   logoutURL?: string;
   userInfoURL?: string;
