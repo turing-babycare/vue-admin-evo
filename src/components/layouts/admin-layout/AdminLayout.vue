@@ -24,9 +24,9 @@
       ></SideMenu>
       <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
-          <BreadCrumb class="bread_wrap" :breadcrumb="breadcrumb"></BreadCrumb>
+          <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
           <div class="admin-layout-content beauty-scroll">
-            <router-view></router-view>
+            <BlankLayout></BlankLayout>
             <p v-show="false" class="build_id">{{ buildId }}</p>
           </div>
         </a-layout-content>
@@ -39,6 +39,7 @@
 import SideMenu from './SideMenu';
 import BreadCrumb from '@/components/BreadCrumb';
 import AdminHeader from './AdminHeader';
+import BlankLayout from '../BlankLayout';
 export default {
   props: {
     appName: {
@@ -50,6 +51,7 @@ export default {
   name: 'AdminLayout',
   components: {
     SideMenu,
+    BlankLayout,
     AdminHeader,
     BreadCrumb
   },
@@ -136,10 +138,6 @@ export default {
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
-    .bread_wrap {
-      flex: 0 0 22px;
-      margin-bottom: 30px;
-    }
     .admin-layout-content {
       flex: 1;
       overflow: auto;

@@ -1,18 +1,22 @@
 <template>
-  <page-toggle-transition :disabled="true">
-    <!-- :animate="animate.name"
-    :direction="animate.direction" -->
+  <transition name="fade">
     <router-view />
-  </page-toggle-transition>
+  </transition>
 </template>
 
 <script>
-import PageToggleTransition from '@/components/transition/PageToggleTransition';
-
 export default {
-  name: 'BlankLayout',
-  components: { PageToggleTransition }
+  name: 'BlankLayout'
 };
 </script>
 
-<style scoped></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

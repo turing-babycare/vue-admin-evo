@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumb">
+  <div class="bread_wrap" v-if="breadArr && breadArr.length">
     <a-breadcrumb>
       <a-breadcrumb-item :key="index" v-for="(item, index) in breadArr">
         <router-link :to="item.path || '/'">
@@ -28,3 +28,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.bread_wrap {
+  flex: 0 0 22px;
+  margin-bottom: 28px;
+}
+</style>
