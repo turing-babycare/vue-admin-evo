@@ -11,6 +11,7 @@
       :style="headerStyle"
       :user="userInfo"
       :collapsed="collapsed"
+      :showHeaderIcon="showIcon"
       @toggleCollapse="toggleCollapse"
     />
     <a-layout>
@@ -19,7 +20,7 @@
         :collapsed="collapsed"
         :collapsible="true"
         :appName="appName"
-        @hiddenHeaderIcon="hiddenHeaderIcon"
+        @showHeaderIcon="showHeaderIcon"
       ></SideMenu>
       <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
@@ -54,6 +55,7 @@ export default {
   },
   data() {
     return {
+      showIcon: true,
       collapsed: false,
       showMenu: [],
       list: []
@@ -84,8 +86,8 @@ export default {
     }
   },
   methods: {
-    hiddenHeaderIcon(val) {
-      this.collapsed = val;
+    showHeaderIcon(val) {
+      this.showIcon = val;
     },
     setMenu(menuArr) {
       menuArr.forEach(item => {

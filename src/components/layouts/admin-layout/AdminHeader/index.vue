@@ -8,7 +8,7 @@
         </router-link>
       </div>
       <a-icon
-        v-if="layout !== 'head'"
+        v-if="layout !== 'head' && showHeaderIcon"
         class="trigger"
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="toggleCollapse"
@@ -30,6 +30,10 @@ export default {
   name: 'AdminHeader',
   components: { HeaderAvatar, ProjectMenu },
   props: {
+    showHeaderIcon: {
+      type: Boolean,
+      default: true
+    },
     collapsed: {
       type: Boolean,
       default: false

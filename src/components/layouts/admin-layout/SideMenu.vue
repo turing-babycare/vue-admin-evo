@@ -22,11 +22,7 @@
       >
         <template v-for="item in showMenu">
           <a-menu-item
-            v-if="
-              (!item.children || item.children.length === 0) &&
-                item.meta &&
-                !item.meta.hidden
-            "
+            v-if="!item.children || item.children.length === 0"
             :key="item.redirect ? item.redirect : item.path"
             @click="toMenu(item)"
           >
@@ -103,9 +99,9 @@ export default {
         }
       });
       this.showMenu = this.showMenu.filter(function(o) {
-        return !o.meta.hidden;
+        return o.meta && !o.meta.hidden;
       });
-      this.emit('hiddenHeaderIcon', this.showMenu.length === 0);
+      this.$emit('showHeaderIcon', this.showMenu.length ? true : false);
       console.log(222222, this.showMenu);
     },
     setDefaultKey() {
