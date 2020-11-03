@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="layout" :class="['admin-layout', 'beauty-scroll']">
+  <a-layout class="layout admin-layout">
     <AdminHeader
       :class="[
         {
@@ -24,8 +24,8 @@
       ></SideMenu>
       <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
-          <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
-          <div class="admin-layout-content">
+          <BreadCrumb class="bread_wrap" :breadcrumb="breadcrumb"></BreadCrumb>
+          <div class="admin-layout-content beauty-scroll">
             <router-view></router-view>
             <p v-show="false" class="build_id">{{ buildId }}</p>
           </div>
@@ -55,6 +55,7 @@ export default {
   },
   data() {
     return {
+      headerStyle: 'flex: 0 0 64px;',
       showIcon: true,
       collapsed: false,
       showMenu: [],
@@ -123,16 +124,51 @@ export default {
 </script>
 
 <style lang="scss">
+.admin-layout {
+  height: 100vh;
+}
 .admin-layout-wrap {
-  height: calc(100vh - 64px - 10px);
-  padding: 16px;
-  .admin-layout-content {
-    margin-top: 28px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 30px 20px;
+  background: #f7f7f7;
+  .content {
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    .bread_wrap {
+      flex: 0 0 22px;
+      margin-bottom: 30px;
+    }
+    .admin-layout-content {
+      flex: 1;
+      overflow: auto;
+      position: relative;
+    }
   }
 }
 .build_id {
   position: fixed;
   right: 10px;
   bottom: 2px;
+}
+.beauty-scroll {
+  scrollbar-color: #1890ff #e6f7ff;
+  scrollbar-width: thin;
+  -ms-overflow-style: none;
+  position: relative;
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #1890ff;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6f7ff;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  }
 }
 </style>

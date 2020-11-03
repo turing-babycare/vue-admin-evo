@@ -115,7 +115,6 @@ export default {
       transition: color 0.3s;
       cursor: pointer;
       &:hover {
-        // @primary-color
         color: #1890ff;
       }
     }
@@ -126,6 +125,9 @@ export default {
         line-height: 65px;
         box-shadow: none;
         vertical-align: middle;
+        .ant-menu-horizontal {
+          line-height: 62px;
+        }
       }
     }
     .admin-header-right {
