@@ -118,10 +118,6 @@ export default {
 </script>
 <style lang="scss">
 // content
-.admin-layout-wrap {
-  padding: 24px 24px 0;
-  min-height: calc(100vh - 64px - 10px);
-}
 .sider {
   height: calc(100vh - 64px);
   background: #fff;

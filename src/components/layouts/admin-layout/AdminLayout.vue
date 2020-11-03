@@ -124,6 +124,7 @@ export default {
 
 <style lang="scss">
 .admin-layout-wrap {
+  height: calc(100vh - 64px - 10px);
   padding: 16px;
   .admin-layout-content {
     margin-top: 28px;
