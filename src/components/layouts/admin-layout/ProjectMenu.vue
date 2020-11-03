@@ -7,7 +7,9 @@
       style="box-shadow:none;"
     >
       <a-menu-item :key="item.key" v-for="item in options">
-        <a :href="item.url" target="_blank">{{ item.text }}</a>
+        <a :href="item.url + '?__token=' + userInfo.token" target="_blank">{{
+          item.text
+        }}</a>
       </a-menu-item>
     </a-menu>
   </div>
@@ -25,7 +27,11 @@ export default {
       actived: []
     };
   },
-  computed: {},
+  computed: {
+    userInfo() {
+      return this.$store.state.evo.userInfo;
+    }
+  },
   watch: {},
   // WATC
   methods: {

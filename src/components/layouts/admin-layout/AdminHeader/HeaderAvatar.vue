@@ -50,7 +50,7 @@ export default {
   methods: {
     logoutHandle() {
       const logoutURL = get('options').logoutURL;
-      client.get(logoutURL).then(() => {
+      client.post(logoutURL).then(() => {
         removeToken();
       });
     }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showMenu && showMenu.length">
     <a-layout-sider
       theme="light"
       width="256px"
@@ -102,6 +102,10 @@ export default {
           item.children = [];
         }
       });
+      this.showMenu = this.showMenu.filter(function(o) {
+        return !o.meta.hidden;
+      });
+      this.emit('hiddenHeaderIcon', this.showMenu.length === 0);
       console.log(222222, this.showMenu);
     },
     setDefaultKey() {

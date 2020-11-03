@@ -15,11 +15,11 @@
     />
     <a-layout>
       <SideMenu
-        class="fixed-side"
         :menuData="menuData"
         :collapsed="collapsed"
         :collapsible="true"
         :appName="appName"
+        @hiddenHeaderIcon="hiddenHeaderIcon"
       ></SideMenu>
       <a-layout class="admin-layout-wrap beauty-scroll">
         <a-layout-content class="content">
@@ -84,6 +84,9 @@ export default {
     }
   },
   methods: {
+    hiddenHeaderIcon(val) {
+      this.collapsed = val;
+    },
     setMenu(menuArr) {
       menuArr.forEach(item => {
         const meta = item.meta;
