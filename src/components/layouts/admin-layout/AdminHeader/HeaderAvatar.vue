@@ -8,7 +8,7 @@
         shape="circle"
         :src="user && user.avatar ? user.avatar : ''"
       />
-      <span class="name" style="margin-left:14px;margin-right:10px;">
+      <span class="name" style="margin-left:10px;margin-right:10px;">
         {{ user.name || '未知' }}
       </span>
     </div>

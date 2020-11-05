@@ -9,7 +9,6 @@
         }
       ]"
       :style="headerStyle"
-      :user="userInfo"
       :collapsed="collapsed"
       :showHeaderIcon="showIcon"
       @toggleCollapse="toggleCollapse"
@@ -67,9 +66,6 @@ export default {
   computed: {
     buildId() {
       return process.env.VUE_APP_BUILD_ID;
-    },
-    userInfo() {
-      return this.$store.state.evo.userInfo;
     },
     menuData() {
       // 只隐藏当前路由
@@ -166,7 +162,7 @@ export default {
   &::-webkit-scrollbar-track {
     background: #e6f7ff;
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
   }
 }
 </style>

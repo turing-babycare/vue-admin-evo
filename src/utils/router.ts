@@ -28,7 +28,9 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
     console.log('to.meta=', to.meta.loginPage, to.meta.skipLogin);
     window.location.replace(
-      `${options.loginHost}?oauth_callback=${encodeURIComponent(
+      `${encodeURIComponent(
+        options.loginHost
+      )}?oauth_callback=${encodeURIComponent(
         window.location.origin + to.fullPath
       )}`
     );

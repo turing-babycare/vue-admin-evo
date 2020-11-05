@@ -38,12 +38,6 @@ export default {
       type: Boolean,
       default: false
     },
-    user: {
-      type: Object,
-      default: () => {
-        return {};
-      }
-    },
     systemName: {
       type: String,
       default: '家庭健康服务平台'
@@ -58,6 +52,9 @@ export default {
     };
   },
   computed: {
+    user() {
+      return this.$store.state.evo.userInfo;
+    },
     projectData() {
       return this.user.navigation || [];
     }
