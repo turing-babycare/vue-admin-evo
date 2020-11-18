@@ -27,13 +27,11 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
     });
   } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
     console.log('to.meta=', to.meta.loginPage, to.meta.skipLogin);
-    window.location.replace(
-      `${encodeURIComponent(
-        options.loginHost
-      )}?oauth_callback=${encodeURIComponent(
-        window.location.origin + to.fullPath
-      )}`
-    );
+    const url = `${options.loginHost}/login?oauth_callback=${window.location
+      .origin + to.fullPath}`;
+    console.log(url);
+    window.location.replace(url);
+    console.log(window.location);
   } else {
     const userInfo = options.store.state.evo.userInfo;
     if (token && !userInfo.token) {

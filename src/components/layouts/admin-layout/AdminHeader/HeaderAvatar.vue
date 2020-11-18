@@ -52,6 +52,7 @@ export default {
       const logoutURL = get('options').logoutURL;
       client.post(logoutURL).then(() => {
         removeToken();
+        location.reload();
       });
     }
   }

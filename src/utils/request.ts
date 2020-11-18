@@ -1,5 +1,5 @@
 import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getToken } from './auth';
+import { getToken, removeToken } from './auth';
 // import { message, Modal } from 'ant-design-vue';
 
 export interface RequestOptions {
@@ -43,6 +43,8 @@ export default class Request {
               content: `登录超时，请重新登录`,
               onOk: () => {
                 options.$message.loading('跳转登录中...');
+                removeToken();
+                location.reload();
               }
             });
           } else if (response.status === 500) {
