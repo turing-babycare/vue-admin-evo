@@ -13,11 +13,11 @@
       </span>
     </div>
     <a-menu :class="['avatar-menu']" slot="overlay">
-      <a-menu-item>
+      <a-menu-item v-if="personalCenterShow">
         <a-icon type="user" />
         <span>个人中心</span>
       </a-menu-item>
-      <a-menu-item>
+      <a-menu-item v-if="settingShow">
         <a-icon type="setting" />
         <span>设置</span>
       </a-menu-item>
@@ -37,6 +37,14 @@ import { get } from '@/utils/options';
 export default {
   name: 'HeaderAvatar',
   props: {
+    personalCenterShow: {
+      type: Boolean,
+      default: false
+    },
+    settingShow: {
+      type: Boolean,
+      default: false
+    },
     user: {
       type: Object,
       default: () => {

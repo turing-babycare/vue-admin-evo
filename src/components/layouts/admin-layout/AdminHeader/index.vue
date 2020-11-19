@@ -18,7 +18,12 @@
         <ProjectMenu class="head-menu" :options="projectData" />
       </div>
       <div :class="['admin-header-right', headerTheme]">
-        <header-avatar :user="user" class="header-item" />
+        <header-avatar
+          :personalCenterShow="personalCenterShow"
+          :settingShow="settingShow"
+          :user="user"
+          class="header-item"
+        />
       </div>
     </div>
   </a-layout-header>
@@ -30,6 +35,14 @@ export default {
   name: 'AdminHeader',
   components: { HeaderAvatar, ProjectMenu },
   props: {
+    personalCenterShow: {
+      type: Boolean,
+      default: false
+    },
+    settingShow: {
+      type: Boolean,
+      default: false
+    },
     showHeaderIcon: {
       type: Boolean,
       default: true
