@@ -39,15 +39,17 @@ export default class Request {
           const msg = response.data['message'];
           error.message = msg;
           if (response.status === 401) {
-            options.$modal.warning({
-              title: '登录超时',
-              content: `登录超时，请重新登录`,
-              onOk: () => {
-                options.$message.loading('跳转登录中...');
-                removeToken();
-                location.reload();
-              }
-            });
+            // options.$modal.warning({
+            //   title: '登录超时',
+            //   content: `登录超时，请重新登录`,
+            //   onOk: () => {
+            //     options.$message.loading('跳转登录中...');
+            //   }
+            // });
+            // 登录超时直接跳转登录页
+            options.$message.warning('登录超时！');
+            removeToken();
+            location.reload();
           } else if (response.status === 500) {
             options.$modal.error({
               title: '操作失败',

@@ -4,7 +4,6 @@
       <div :class="['logo', theme]">
         <router-link to="/">
           <img :src="logoSrc" />
-          <h1>{{ systemName }}</h1>
         </router-link>
       </div>
       <a-icon
@@ -60,7 +59,7 @@ export default {
     return {
       layout: 'side',
       logoSrc:
-        'https://pic1.baobaohehu.com/fhs/admin/220201030170741232/1604048862832.png',
+        'https://pic1.baobaohehu.com/fhs/admin/420201120182735411/1605868056474.png',
       headerTheme: 'light'
     };
   },
@@ -109,7 +108,7 @@ export default {
         padding: 0 12px 0 0;
       }
       img {
-        width: 32px;
+        width: 169px;
         vertical-align: middle;
       }
       h1 {
