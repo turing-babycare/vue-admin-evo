@@ -35,6 +35,7 @@ export default class Request {
         if (error.response) {
           const response = error.response as AxiosResponse;
           const traceId = response.headers['X-TRACE-ID'];
+          const id = traceId ? `[${traceId}] ` : '';
           const msg = response.data['message'];
           error.message = msg;
           if (response.status === 401) {
@@ -50,12 +51,12 @@ export default class Request {
           } else if (response.status === 500) {
             options.$modal.error({
               title: '操作失败',
-              content: `${msg} [${traceId}]`
+              content: `${msg} ${id}`
             });
           } else {
             options.$modal.warning({
               title: '操作失败',
-              content: `${msg} [${traceId}]`
+              content: `${msg} ${id}`
             });
           }
         } else {
