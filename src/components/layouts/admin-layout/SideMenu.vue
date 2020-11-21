@@ -18,6 +18,7 @@
           :default-selected-keys="defaultSelectedKeys"
           :default-open-keys="defaultOpenKeys"
           mode="inline"
+          :selectedKeys="selectedKeys"
           theme="light"
           :inline-collapsed="collapsed"
         >
@@ -69,6 +70,7 @@ export default {
     return {
       showMenu: [],
       defaultOpenKeys: [],
+      selectedKeys: [],
       defaultSelectedKeys: []
     };
   },
@@ -77,6 +79,16 @@ export default {
       handler(val) {
         if (val) {
           this.ifChildAllHidden();
+        }
+      },
+      immediate: true
+    },
+    $route: {
+      handler(val) {
+        if (val && val.meta && val.meta.activeMenu) {
+          this.selectedKeys = [val.meta.activeMenu];
+        } else {
+          this.selectedKeys = [val.path];
         }
       },
       immediate: true

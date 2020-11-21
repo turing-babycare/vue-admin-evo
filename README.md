@@ -15,6 +15,7 @@
           name: 'page-a', // 当前菜单及面包屑名称
           hidden: true, // 是否显示当前菜单，默认false显示
           skipLogin: true, // 是否验证token, 默认false验证
+          activeMenu:'', //当前路由高亮选中菜单，不设置默认高亮当前路由匹配的菜单
           breadHidden: false, //是否隐藏当前面包屑，默认false显示
           breadcrumb: undefined // 是否自定义当前面包屑[{icon:'',name:'',path:''}]，
         },
@@ -62,11 +63,17 @@ async function getData() {
 
 ---
 
-##### socket 是实例化后的 socket.io 客户端
+##### socket 是实例化后的 socket.io 客户端,提供了connentSocket方法连接socket客户端，连接参数为
+```
+{ 
+  ns: string;
+  token: string;
+  url: string;
+}
+```
 
 ```
-import { socket } from 'vue-admin-evo';
-
+import { socket,connectSocket } from 'vue-admin-evo';
 socket.on('name', res => {
   console.log(res)
 })
@@ -119,7 +126,6 @@ Vue.use(Evo, {
   logoutURL: '/logout',
   loginHost: 'http://baidu.com', // 登陆项目域名
   clientBaseURL: 'https://api-v3.baobaohehu.com', // 接口根域名
-  wsBaseURL: 'https://ws.baobaohehu.com', // socket 域名
   userInfoPath?: '/login'; // 用户信息接口（使用同退出登录接口）
   $message: Vue.prototype.$message, // message组件
   $modal: Modal // modal组件
