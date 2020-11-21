@@ -47,9 +47,11 @@ export default class Request {
             //   }
             // });
             // 登录超时直接跳转登录页
-            options.$message.warning('登录超时！');
-            removeToken();
-            location.reload();
+            options.$message.warning('登录超时，请重新登录!');
+            setTimeout(() => {
+              removeToken();
+              location.reload();
+            }, 1000);
           } else if (response.status === 500) {
             options.$modal.error({
               title: '操作失败',

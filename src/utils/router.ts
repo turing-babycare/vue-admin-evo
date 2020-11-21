@@ -25,7 +25,6 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
       params: to.params
     });
   } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
-    console.log('to.meta=', to.meta.loginPage, to.meta.skipLogin);
     const url = `${options.loginHost}/login?oauth_callback=${window.location
       .origin + to.fullPath}`;
     console.log(url);
