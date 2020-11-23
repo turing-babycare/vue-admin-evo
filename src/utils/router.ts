@@ -25,11 +25,10 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
       params: to.params
     });
   } else if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
-    const url = `https://oa-account.baobaohehu.com/login?oauth_callback=${window
-      .location.origin + to.fullPath}`;
+    const url = `${options.loginHost}/login?oauth_callback=${window.location
+      .origin + to.fullPath}`;
     console.log(url);
-    // window.location.replace(url);
-    window.location.href = url;
+    window.location.replace(url);
     console.log(window.location);
   } else {
     const userInfo = options.store.state.evo.userInfo;
