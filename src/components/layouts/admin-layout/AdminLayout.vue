@@ -147,7 +147,8 @@ export default {
   bottom: 2px;
 }
 .beauty-scroll {
-  scrollbar-color: #1890ff #e6f7ff;
+  // 底色#f9f9f9 ，条是#DDD
+  scrollbar-color: #ddd #f9f9f9;
   scrollbar-width: thin;
   -ms-overflow-style: none;
   position: relative;
@@ -156,11 +157,11 @@ export default {
     height: 1px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #1890ff;
+    background: #ddd;
     border-radius: 3px;
   }
   &::-webkit-scrollbar-track {
-    background: #e6f7ff;
+    background: #f9f9f9;
     border-radius: 3px;
     box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
   }
