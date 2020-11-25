@@ -16,6 +16,10 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   const queryToken = String(to.query.__token || '');
   if (queryToken) {
     setToken(queryToken);
+    // 根据当前token更新用户信息
+    client.get(options.userInfoPath as string, {}).then((res: any) => {
+      options.store.commit('evo/setUserInfo', res);
+    });
     delete to.query['__token'];
     next({
       name: to.name as string,
@@ -29,10 +33,9 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
       .origin + to.fullPath}`;
     console.log(url);
     window.location.replace(url);
-    console.log(window.location);
   } else {
     const userInfo = options.store.state.evo.userInfo;
-    if (token && !userInfo.token) {
+    if (token && (!userInfo.token || token !== userInfo?.token)) {
       client.get(options.userInfoPath as string, {}).then((res: any) => {
         options.store.commit('evo/setUserInfo', res);
       });
