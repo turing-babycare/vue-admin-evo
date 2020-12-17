@@ -5,6 +5,11 @@
   >
     <span slot="title" @click="toPath">
       <a-icon v-if="menuInfo.meta.icon" :type="menuInfo.meta.icon" />
+      <i
+        v-if="menuInfo.meta.iconfont"
+        style="margin-right: 10px"
+        :class="menuInfo.meta.iconfont"
+      />
       <span v-if="menuInfo.meta.name">{{ menuInfo.meta.name }}</span>
     </span>
     <template v-for="item in menuInfo.children">
@@ -12,7 +17,15 @@
         v-if="!item.children && !item.meta.hidden"
         :key="item.redirect ? item.redirect : item.path"
       >
-        <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
+        <a-icon
+          v-if="item.meta.icon || item.meta.iconClass"
+          :type="item.meta.icon"
+        />
+        <i
+          v-if="item.meta.iconfont"
+          style="margin-right: 10px"
+          :class="item.meta.iconfont"
+        />
         <router-link v-if="item.meta.name" :to="item.path">
           {{ item.meta.name }}
         </router-link>

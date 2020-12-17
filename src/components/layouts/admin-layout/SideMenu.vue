@@ -29,6 +29,11 @@
               @click="toMenu(item)"
             >
               <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
+              <i
+                v-if="item.meta.iconfont"
+                :class="item.meta.iconfont"
+                style="margin-right: 10px"
+              />
               <span v-if="item.meta.name"> {{ item.meta.name }}</span>
             </a-menu-item>
             <sub-menu v-else :key="item.path" :menu-info="item" />

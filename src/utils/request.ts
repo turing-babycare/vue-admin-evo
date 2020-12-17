@@ -7,7 +7,9 @@ export interface RequestOptions {
   $message: any;
   $modal: any;
 }
-
+export interface RequestConfig extends AxiosRequestConfig {
+  mock?: string;
+}
 export default class Request {
   public axios: AxiosInstance;
 
@@ -20,10 +22,16 @@ export default class Request {
       baseURL: options.baseURL
     });
     this.axios = axios;
-    axios.interceptors.request.use(config => {
+    axios.interceptors.request.use((config: RequestConfig) => {
       const token = getToken();
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      if (config.params?.mock || config.data?.mock) {
+        const mockUrl = config.params?.mock
+          ? config.params.mock
+          : config.data.mock;
+        config.url = mockUrl + config.url;
       }
       return config;
     });
@@ -76,23 +84,23 @@ export default class Request {
     return axios;
   }
 
-  async fetch(config: AxiosRequestConfig = {}) {
+  async fetch(config: RequestConfig = {}) {
     return this.axios(config);
   }
 
-  async get(url: string, config: AxiosRequestConfig) {
+  async get(url: string, config: RequestConfig) {
     return this.fetch({ url, method: 'GET', ...config });
   }
 
-  async post(url: string, config: AxiosRequestConfig) {
+  async post(url: string, config: RequestConfig) {
     return this.fetch({ url, method: 'POST', ...config });
   }
 
-  async put(url: string, config: AxiosRequestConfig) {
+  async put(url: string, config: RequestConfig) {
     return this.fetch({ url, method: 'PUT', ...config });
   }
 
-  async delete(url: string, config: AxiosRequestConfig) {
+  async delete(url: string, config: RequestConfig) {
     return this.fetch({ url, method: 'DELETE', ...config });
   }
 }
