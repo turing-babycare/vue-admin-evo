@@ -32,7 +32,8 @@
               <i
                 v-if="item.meta.iconfont"
                 :class="item.meta.iconfont"
-                style="margin-right: 10px"
+                style="font-size:16px;"
+                :style="collapsed ? 'margin-right: 34px' : 'margin-right: 8px'"
               />
               <span v-if="item.meta.name"> {{ item.meta.name }}</span>
             </a-menu-item>
@@ -136,6 +137,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.iconfont {
+  font-size: 16px;
+}
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .slide-fade-enter-active {
