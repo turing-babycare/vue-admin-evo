@@ -66,7 +66,7 @@
                 >
                   <a-form-model-item
                     label="预计上线时间"
-                    prop="predict_online_at"
+                    prop="predictOnlineAt"
                   >
                     <a-time-picker
                       style="width: 200px"
@@ -75,23 +75,23 @@
                           return triggerNode.parentNode;
                         }
                       "
-                      v-model="form.predict_online_at"
+                      v-model="form.predictOnlineAt"
                       input-read-only
-                      :default-open-value="moment(new Date())"
+                      :default-open-value="format(new Date(), 'HH:mm:ss')"
                     >
                       <a-icon slot="suffixIcon" type="smile" />
                     </a-time-picker>
                   </a-form-model-item>
-                  <a-form-model-item label="挂起原因" prop="hang_up_reason">
+                  <a-form-model-item label="挂起原因" prop="hangUpReason">
                     <div class="textarea">
                       <a-textarea
                         :auto-size="{ minRows: 3, maxRows: 3 }"
-                        v-model="form.hang_up_reason"
+                        v-model="form.hangUpReason"
                         placeholder="请输入挂起原因"
                       >
                       </a-textarea>
                       <div class="number">
-                        {{ form.hang_up_reason.length }} / 20
+                        {{ form.hangUpReason.length }} / 20
                       </div>
                     </div>
                   </a-form-model-item>
@@ -109,6 +109,17 @@
           </a-popover>
         </template>
       </a-sub-menu>
+      <a-menu-item v-if="user.user && !user.user.ask_online_status">
+        <div class="info">
+          <div>
+            {{ user.user && user.user.hang_up_reason }}
+          </div>
+          <div style="marginTop: 8px">
+            预计上线时间：
+            {{ user.user && user.user.predict_online_at }}
+          </div>
+        </div>
+      </a-menu-item>
       <a-menu-item @click="logoutHandle">
         <a-icon style="margin-right: 8px;" type="poweroff" />
         <span>退出登录</span>
@@ -121,6 +132,7 @@
 import client from '@/utils/client';
 import { removeToken } from '@/utils/auth';
 import { get } from '@/utils/options';
+import format from '@/utils/time';
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -159,14 +171,14 @@ export default {
         lineHeight: '30px'
       },
       form: {
-        predict_online_at: '',
-        hang_up_reason: ''
+        predictOnlineAt: '',
+        hangUpReason: ''
       },
       rules: {
-        predict_online_at: [
+        predictOnlineAt: [
           { required: true, message: '请选择时间', trigger: ['change', 'blur'] }
         ],
-        hang_up_reason: [
+        hangUpReason: [
           {
             required: true,
             message: '请填写原因',
@@ -183,7 +195,7 @@ export default {
     };
   },
   methods: {
-    moment,
+    format,
     async onChange(e) {
       const value = e.target.value;
       this.onlineStatus = value;
@@ -221,8 +233,8 @@ export default {
             await client.put(get('options').onlineStatusPath, {
               data: {
                 online_status: 0,
-                hang_up_reason: this.hang_up_reason,
-                predict_online_at: this.predict_online_at
+                hang_up_reason: this.form.hangUpReason,
+                predict_online_at: this.form.predictOnlineAt
               }
             });
             this.handleSuccess();
@@ -236,8 +248,7 @@ export default {
         }
       });
     }
-  },
-  created() {}
+  }
 };
 </script>
 
@@ -302,5 +313,10 @@ export default {
       line-height: 1;
     }
   }
+}
+.info {
+  padding: 16px 0;
+  border-top: 1px solid #eceef4;
+  border-bottom: 1px solid #eceef4;
 }
 </style>
