@@ -130,6 +130,7 @@ Vue.use(Evo, {
   userInfoPath: '/v2/admin/userinfo', // 获取用户信息接口路径
   onlineStatusPath: '/v2/admin/online-state', // 上下线接口路径
   $message: Vue.prototype.$message, // message组件
-  $modal: Modal // modal组件
+  $modal: Modal, // modal组件
+  Moment: Moment // Moment
 });
 ```

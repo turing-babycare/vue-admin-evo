@@ -15,6 +15,7 @@ export interface BootstrapOptions {
   router: VueRouter;
   $message: any;
   $modal: any;
+  Moment: any;
 }
 
 export default function bootstrap(options: BootstrapOptions) {

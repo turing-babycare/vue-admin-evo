@@ -77,7 +77,7 @@
                       "
                       v-model="form.predictOnlineAt"
                       input-read-only
-                      :default-open-value="format(new Date(), 'HH:mm:ss')"
+                      :default-open-value="get('options').Moment(new Date())"
                     >
                       <a-icon slot="suffixIcon" type="smile" />
                     </a-time-picker>
@@ -132,7 +132,6 @@
 import client from '@/utils/client';
 import { removeToken } from '@/utils/auth';
 import { get } from '@/utils/options';
-import format from '@/utils/time';
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -156,8 +155,9 @@ export default {
     }
   },
   watch: {
-    show() {
+    show(v) {
       this.onlineStatus = this.user.user?.ask_online_status;
+      if (!v) this.$refs.ruleForm.resetFields();
     }
   },
   computed: {},
@@ -195,7 +195,7 @@ export default {
     };
   },
   methods: {
-    format,
+    get,
     async onChange(e) {
       const value = e.target.value;
       this.onlineStatus = value;
