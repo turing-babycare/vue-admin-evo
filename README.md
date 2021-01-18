@@ -63,9 +63,10 @@ async function getData() {
 
 ---
 
-##### socket 是实例化后的 socket.io 客户端,提供了connentSocket方法连接socket客户端，连接参数为
+##### socket 是实例化后的 socket.io 客户端,提供了 connentSocket 方法连接 socket 客户端，连接参数为
+
 ```
-{ 
+{
   ns: string;
   token: string;
   url: string;
@@ -122,11 +123,12 @@ import 'vue-admin-evo/dist/vue-admin-evo.css';
 Vue.use(Evo, {
   store, //传入store
   router, // 传入router
-  // 退出登录接口地址，若接口跟域名改变，地址不变，需要传退出登录的全部url地址,如：http://baidu.com/lougout,
-  logoutURL: '/logout',
-  loginHost: 'http://baidu.com', // 登陆项目域名
-  clientBaseURL: 'https://api-v3.baobaohehu.com', // 接口根域名
-  userInfoPath?: '/login'; // 用户信息接口（使用同退出登录接口）
+  logoutURL: '/v2/admin/login-out',
+  wsBaseURL: '',
+  loginHost: process.env.VUE_APP_LOGIN_URL, // 登录项目域名
+  clientBaseURL: process.env.VUE_APP_API_BASE_URL, // 接口根域名
+  userInfoPath: '/v2/admin/userinfo', // 获取用户信息接口路径
+  onlineStatusPath: '/v2/admin/online-state', // 上下线接口路径
   $message: Vue.prototype.$message, // message组件
   $modal: Modal // modal组件
 });
