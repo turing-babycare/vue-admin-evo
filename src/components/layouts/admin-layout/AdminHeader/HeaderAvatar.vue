@@ -12,7 +12,7 @@
         {{ user.name || '未知' }}
       </span>
     </div>
-    <a-menu :class="['avatar-menu']" slot="overlay">
+    <a-menu :class="['avatar-menu']" slot="overlay" style="width: 200px">
       <a-menu-item v-if="personalCenterShow">
         <a-icon type="user" />
         <span>个人中心</span>
@@ -116,7 +116,12 @@
           </div>
           <div style="marginTop: 8px">
             预计上线时间：
-            {{ user.user && user.user.predict_online_at }}
+            {{
+              user.user &&
+                get('options')
+                  .Moment(user.user.predict_online_at)
+                  .format('HH:MM')
+            }}
           </div>
         </div>
       </a-menu-item>
@@ -318,5 +323,6 @@ export default {
   padding: 16px 0;
   border-top: 1px solid #eceef4;
   border-bottom: 1px solid #eceef4;
+  white-space: pre-wrap;
 }
 </style>
