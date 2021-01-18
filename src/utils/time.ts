@@ -17,6 +17,7 @@ export default function(date: Date, fmt: string) {
     if (new RegExp('(' + k + ')').test(fmt))
       fmt = fmt.replace(
         RegExp.$1,
+        // @ts-ignore
         RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
       );
   return fmt;
