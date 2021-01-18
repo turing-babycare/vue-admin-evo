@@ -9,8 +9,8 @@ export interface BootstrapOptions {
   wsBaseURL: string;
   loginHost: string;
   logoutURL?: string;
-  userInfoURL?: string;
   userInfoPath?: string;
+  onlineStatusPath?: string;
   store: Store<{ evo: EvoState }>;
   router: VueRouter;
   $message: any;
