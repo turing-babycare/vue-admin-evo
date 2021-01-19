@@ -29,19 +29,19 @@
                 <a-icon
                   :style="
                     `color: ${
-                      user.user && user.user.ask_online_status
+                      user.user && user.user.online_status
                         ? '#52C41A'
                         : '#FF4D4F'
                     };marginRight: 4px`
                   "
                   theme="filled"
                   :type="
-                    user.user && user.user.ask_online_status
+                    user.user && user.user.online_status
                       ? 'check-circle'
                       : 'stop'
                   "
                 />
-                {{ user.user && user.user.ask_online_status ? '在线' : '挂起' }}
+                {{ user.user && user.user.online_status ? '在线' : '挂起' }}
               </div>
               <a-icon type="sync" />
             </div>
@@ -109,7 +109,7 @@
           </a-popover>
         </template>
       </a-sub-menu>
-      <a-menu-item v-if="user.user && !user.user.ask_online_status">
+      <a-menu-item v-if="user.user && !user.user.online_status">
         <div class="info">
           <div>
             {{ user.user && user.user.hang_up_reason }}
@@ -161,7 +161,7 @@ export default {
   },
   watch: {
     show(v) {
-      this.onlineStatus = this.user.user?.ask_online_status;
+      this.onlineStatus = this.user.user?.online_status;
       if (!v)
         this.form = {
           predictOnlineAt: '',
