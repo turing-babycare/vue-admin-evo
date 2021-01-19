@@ -162,7 +162,11 @@ export default {
   watch: {
     show(v) {
       this.onlineStatus = this.user.user?.ask_online_status;
-      if (!v) this.$refs.ruleForm.resetFields();
+      if (!v)
+        this.form = {
+          predict_online_at: '',
+          hang_up_reason: ''
+        };
     }
   },
   computed: {},
