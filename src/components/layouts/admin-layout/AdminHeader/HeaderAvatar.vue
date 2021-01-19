@@ -164,8 +164,8 @@ export default {
       this.onlineStatus = this.user.user?.ask_online_status;
       if (!v)
         this.form = {
-          predict_online_at: '',
-          hang_up_reason: ''
+          predictOnlineAt: '',
+          hangUpReason: ''
         };
     }
   },
@@ -285,7 +285,6 @@ export default {
 }
 .status-content {
   width: 280px;
-  height: 500px;
   padding: 12px 8px;
   margin: 0;
 
