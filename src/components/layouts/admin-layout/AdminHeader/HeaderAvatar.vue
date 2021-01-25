@@ -77,7 +77,7 @@
                       "
                       v-model="form.predictOnlineAt"
                       input-read-only
-                      :default-open-value="Moment(new Date())"
+                      :default-open-value="get('options').Moment(new Date())"
                     >
                       <a-icon slot="suffixIcon" type="smile" />
                     </a-time-picker>
@@ -121,7 +121,10 @@
           <div style="marginTop: 8px">
             预计上线时间：
             {{
-              user.user && Moment(user.user.predict_online_at).format('HH:MM')
+              user.user &&
+                get('options')
+                  .Moment(user.user.predict_online_at)
+                  .format('HH:MM')
             }}
           </div>
         </div>
@@ -223,9 +226,6 @@ export default {
   },
   methods: {
     get,
-    Moment() {
-      return get('options').Moment;
-    },
     async onChange(e) {
       const value = e.target.value;
       this.onlineStatus = value;
@@ -288,9 +288,9 @@ export default {
       }
     },
     durationWithDiff(time, end) {
-      const startDate = this.Moment(time);
-      const endDate = this.Moment(end || new Date());
-      return this.Moment.duration(endDate.diff(startDate));
+      const startDate = get('options').Moment(time);
+      const endDate = get('options').Moment(end || new Date());
+      return get('options').Moment.duration(endDate.diff(startDate));
     }
   }
 };
