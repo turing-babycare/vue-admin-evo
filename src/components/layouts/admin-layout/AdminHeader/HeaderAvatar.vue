@@ -1,5 +1,5 @@
 <template>
-  <a-dropdown :trigger="['click']">
+  <a-dropdown :trigger="['click']" @visibleChange="visibleChange">
     <div class="header-avatar" style="cursor: pointer">
       <a-avatar
         class="avatar"
@@ -77,7 +77,7 @@
                       "
                       v-model="form.predictOnlineAt"
                       input-read-only
-                      :default-open-value="get('options').Moment(new Date())"
+                      :default-open-value="Moment(new Date())"
                     >
                       <a-icon slot="suffixIcon" type="smile" />
                     </a-time-picker>
@@ -110,6 +110,10 @@
         </template>
       </a-sub-menu>
       <a-menu-item v-if="user.user && !user.user.online_status">
+        挂起时长:
+        {{ `${hangUpTime.hours}:${hangUpTime.minutes}:${hangUpTime.seconds}` }}
+      </a-menu-item>
+      <a-menu-item v-if="user.user && !user.user.online_status">
         <div class="info">
           <div>
             {{ user.user && user.user.hang_up_reason }}
@@ -117,10 +121,7 @@
           <div style="marginTop: 8px">
             预计上线时间：
             {{
-              user.user &&
-                get('options')
-                  .Moment(user.user.predict_online_at)
-                  .format('HH:MM')
+              user.user && Moment(user.user.predict_online_at).format('HH:MM')
             }}
           </div>
         </div>
@@ -137,6 +138,8 @@
 import client from '@/utils/client';
 import { removeToken } from '@/utils/auth';
 import { get } from '@/utils/options';
+import { addZero } from '@/utils/time';
+const Moment = get('options').Moment;
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -169,11 +172,26 @@ export default {
         };
     }
   },
-  computed: {},
+  computed: {
+    hangUpTime() {
+      const diffTime = this.durationWithDiff(
+        this.user.user && this.user.user.hang_up_at,
+        this.now
+      );
+      return {
+        hours: addZero(diffTime.hours()),
+        minutes: addZero(diffTime.minutes()),
+        seconds: addZero(diffTime.seconds())
+      };
+    }
+  },
   data() {
     return {
+      onlineStatusPath: get('options').onlineStatusPath,
+      logoutURL: get('options').logoutURL,
       onlineStatus: '',
       show: false,
+      now: new Date(),
       radioStyle: {
         display: 'block',
         height: '30px',
@@ -205,12 +223,13 @@ export default {
   },
   methods: {
     get,
+    Moment,
     async onChange(e) {
       const value = e.target.value;
       this.onlineStatus = value;
       if (value) {
         try {
-          await client.put(get('options').onlineStatusPath, {
+          await client.put(this.onlineStatusPath, {
             data: { online_status: value }
           });
           this.handleSuccess();
@@ -220,8 +239,7 @@ export default {
       }
     },
     logoutHandle() {
-      const logoutURL = get('options').logoutURL;
-      client.post(logoutURL).then(() => {
+      client.post(this.logoutURL).then(() => {
         removeToken();
         location.reload();
       });
@@ -239,7 +257,7 @@ export default {
       this.$refs.ruleForm.validate(async valid => {
         if (valid) {
           try {
-            await client.put(get('options').onlineStatusPath, {
+            await client.put(this.onlineStatusPath, {
               data: {
                 online_status: 0,
                 hang_up_reason: this.form.hangUpReason,
@@ -256,6 +274,21 @@ export default {
           return false;
         }
       });
+    },
+    visibleChange(e) {
+      if (e) {
+        this.now = new Date();
+        this.timer = setInterval(() => {
+          this.now = new Date();
+        }, 1000);
+      } else {
+        clearInterval(this.timer);
+      }
+    },
+    durationWithDiff(time, end) {
+      const startDate = Moment(time);
+      const endDate = Moment(end || new Date());
+      return Moment.duration(endDate.diff(startDate));
     }
   }
 };
