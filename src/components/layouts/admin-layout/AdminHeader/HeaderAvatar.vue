@@ -139,7 +139,7 @@ import client from '@/utils/client';
 import { removeToken } from '@/utils/auth';
 import { get } from '@/utils/options';
 import { addZero } from '@/utils/time';
-const Moment = get('options').Moment;
+
 export default {
   name: 'HeaderAvatar',
   props: {
@@ -223,7 +223,9 @@ export default {
   },
   methods: {
     get,
-    Moment,
+    Moment() {
+      return get('options').Moment;
+    },
     async onChange(e) {
       const value = e.target.value;
       this.onlineStatus = value;
@@ -286,9 +288,9 @@ export default {
       }
     },
     durationWithDiff(time, end) {
-      const startDate = Moment(time);
-      const endDate = Moment(end || new Date());
-      return Moment.duration(endDate.diff(startDate));
+      const startDate = this.Moment(time);
+      const endDate = this.Moment(end || new Date());
+      return this.Moment.duration(endDate.diff(startDate));
     }
   }
 };
