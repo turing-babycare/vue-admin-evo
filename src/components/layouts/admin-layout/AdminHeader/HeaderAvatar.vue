@@ -121,10 +121,11 @@
           <div style="marginTop: 8px">
             预计上线时间：
             {{
-              user.user &&
-                get('options')
-                  .Moment(user.user.predict_online_at)
-                  .format('HH:MM')
+              user.user && user.user.predict_online_at
+                ? get('options')
+                    .Moment(user.user.predict_online_at)
+                    .format('HH:MM')
+                : '未知'
             }}
           </div>
         </div>
@@ -254,6 +255,7 @@ export default {
     },
     resetForm() {
       this.$refs.ruleForm.resetFields();
+      this.show = false;
     },
     onSubmit() {
       this.$refs.ruleForm.validate(async valid => {
