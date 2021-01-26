@@ -124,7 +124,7 @@
               user.user && user.user.predict_online_at
                 ? get('options')
                     .Moment(user.user.predict_online_at)
-                    .format('HH:MM')
+                    .format('HH:mm')
                 : '未知'
             }}
           </div>
