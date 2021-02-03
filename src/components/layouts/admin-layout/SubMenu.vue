@@ -1,18 +1,27 @@
-<template>
+<template functional>
   <a-sub-menu
-    v-if="!menuInfo.meta.hidden"
-    :key="menuInfo.redirect ? menuInfo.redirect : menuInfo.path"
+    v-if="!props.menuInfo.meta.hidden"
+    :key="
+      props.menuInfo.redirect ? props.menuInfo.redirect : props.menuInfo.path
+    "
   >
-    <span slot="title" @click="toPath">
-      <a-icon v-if="menuInfo.meta.icon" :type="menuInfo.meta.icon" />
-      <i
-        v-if="menuInfo.meta.iconfont"
-        style="margin-right: 10px"
-        :class="menuInfo.meta.iconfont"
-      />
-      <span v-if="menuInfo.meta.name">{{ menuInfo.meta.name }}</span>
+    <span slot="title">
+      <router-link :to="props.menuInfo.path">
+        <a-icon
+          v-if="props.menuInfo.meta.icon"
+          :type="props.menuInfo.meta.icon"
+        />
+        <i
+          v-if="props.menuInfo.meta.iconfont"
+          style="margin-right: 10px"
+          :class="props.menuInfo.meta.iconfont"
+        />
+        <span v-if="props.menuInfo.meta.name">{{
+          props.menuInfo.meta.name
+        }}</span>
+      </router-link>
     </span>
-    <template v-for="item in menuInfo.children">
+    <template v-for="item in props.menuInfo.children">
       <a-menu-item
         v-if="!item.children && !item.meta.hidden"
         :key="item.redirect ? item.redirect : item.path"
@@ -46,15 +55,15 @@ export default {
       type: Object,
       default: () => ({})
     }
-  },
-  methods: {
-    toPath(item) {
-      if (item.children?.length) {
-        this.$router.push({ path: item.children[0].path });
-      } else {
-        this.$router.push({ path: item.path });
-      }
-    }
   }
+  // methods: {
+  //   toPath(item) {
+  //     if (item.children?.length) {
+  //       this.$router.push({ path: item.children[0].path });
+  //     } else {
+  //       this.$router.push({ path: item.path });
+  //     }
+  //   }
+  // }
 };
 </script>
