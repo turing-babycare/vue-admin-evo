@@ -11,6 +11,9 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   next
 ) => {
   // console.log('before', to, from);
+  if (to.meta?.name) {
+    document.title = document.title + '-' + to.meta.name;
+  }
   NProgress.start();
   const token = getToken();
   const queryToken = String(to.query.__token || '');
