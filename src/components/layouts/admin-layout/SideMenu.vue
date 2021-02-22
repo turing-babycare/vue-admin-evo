@@ -129,8 +129,10 @@ export default {
       this.defaultSelectedKeys.push(this.$route.path);
     },
     toMenu(item) {
-      if (item.path && this.$route.path !== item.path) {
+      if (item.path && this.$route.path !== item.path && !item.meta.link) {
         this.$router.push({ path: item.path });
+      } else if (item.meta?.link) {
+        window.open(item.meta.link);
       }
     }
   }

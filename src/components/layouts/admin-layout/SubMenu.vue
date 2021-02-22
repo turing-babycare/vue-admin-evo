@@ -6,20 +6,18 @@
     "
   >
     <span slot="title">
-      <router-link :to="props.menuInfo.path">
-        <a-icon
-          v-if="props.menuInfo.meta.icon"
-          :type="props.menuInfo.meta.icon"
-        />
-        <i
-          v-if="props.menuInfo.meta.iconfont"
-          style="margin-right: 10px"
-          :class="props.menuInfo.meta.iconfont"
-        />
-        <span v-if="props.menuInfo.meta.name">{{
-          props.menuInfo.meta.name
-        }}</span>
-      </router-link>
+      <a-icon
+        v-if="props.menuInfo.meta.icon"
+        :type="props.menuInfo.meta.icon"
+      />
+      <i
+        v-if="props.menuInfo.meta.iconfont"
+        style="margin-right: 10px"
+        :class="props.menuInfo.meta.iconfont"
+      />
+      <span v-if="props.menuInfo.meta.name">{{
+        props.menuInfo.meta.name
+      }}</span>
     </span>
     <template v-for="item in props.menuInfo.children">
       <a-menu-item
@@ -35,7 +33,18 @@
           style="margin-right: 10px"
           :class="item.meta.iconfont"
         />
-        <router-link v-if="item.meta.name" :to="item.path">
+        <router-link
+          tag="a"
+          target="_blank"
+          v-if="item.meta.link && item.meta.name"
+          :to="item.meta.link"
+        >
+          {{ item.meta.name }}
+        </router-link>
+        <router-link
+          v-else-if="!item.meta.link && item.meta.name"
+          :to="item.path"
+        >
           {{ item.meta.name }}
         </router-link>
       </a-menu-item>
