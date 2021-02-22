@@ -10,7 +10,6 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   from,
   next
 ) => {
-  // console.log('before', to, from);
   if (to.meta?.name) {
     document.title = document.title + '-' + to.meta.name;
   }
