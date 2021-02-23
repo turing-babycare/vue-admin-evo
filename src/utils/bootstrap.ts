@@ -5,6 +5,7 @@ import { after, before } from './router';
 import { initClient } from './client';
 import { set } from './options';
 export interface BootstrapOptions {
+  appName?: string;
   clientBaseURL: string;
   wsBaseURL: string;
   loginHost: string;

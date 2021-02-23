@@ -11,7 +11,7 @@ export const before = (options: BootstrapOptions): NavigationGuard => (
   next
 ) => {
   if (to.meta?.name) {
-    document.title = document.title + '-' + to.meta.name;
+    document.title = options.appName + '-' + to.meta.name;
   }
   NProgress.start();
   const token = getToken();
