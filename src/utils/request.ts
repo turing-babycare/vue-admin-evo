@@ -16,8 +16,9 @@ export default class Request {
   constructor(options: RequestOptions) {
     this.axios = this.init(options);
   }
-
   public init(options: RequestOptions) {
+    console.log(options, 'options');
+
     const axios = Axios.create({
       baseURL: options.baseURL
     });
@@ -47,35 +48,36 @@ export default class Request {
           const msg = response.data['message'];
           error.message = msg;
           if (response.status === 401) {
-            // options.$modal.warning({
-            //   title: '登录超时',
-            //   content: `登录超时，请重新登录`,
-            //   onOk: () => {
-            //     options.$message.loading('跳转登录中...');
-            //   }
-            // });
-            // 登录超时直接跳转登录页
             options.$message.warning('登录超时，请重新登录!');
             setTimeout(() => {
               removeToken();
               location.reload();
             }, 1000);
           } else if (response.status === 500) {
-            options.$modal.error({
-              title: '操作失败',
-              content: `${msg} ${id}`
-            });
+            options.$modal.error
+              ? options.$modal.error({
+                  title: '操作失败',
+                  content: `${msg} ${id}`
+                })
+              : options.$modal.alert(`${msg} ${id}`, '操作失败');
           } else {
-            options.$modal.warning({
-              title: '操作失败',
-              content: `${msg} ${id}`
-            });
+            options.$modal.warning
+              ? options.$modal.warning({
+                  title: '操作失败',
+                  content: `${msg} ${id}`
+                })
+              : options.$modal.alert(`${msg} ${id}`, '操作失败');
           }
         } else {
-          options.$modal.error({
-            title: '操作失败',
-            content: `服务器连接失败: ${error.message}`
-          });
+          options.$modal.error
+            ? options.$modal.error({
+                title: '操作失败',
+                content: `服务器连接失败: ${error.message}`
+              })
+            : options.$modal.alert(
+                `服务器连接失败: ${error.message}`,
+                '操作失败'
+              );
           error.message = `服务器连接失败: ${error.message}`;
         }
         return Promise.reject(error);
