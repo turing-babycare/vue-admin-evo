@@ -52,6 +52,7 @@ export default class Request {
         const msg = response.data.msg;
         if (response.data.code === 500) {
           this.getModal(options.$modal, title, msg);
+          return Promise.reject(response.data);
         }
         return response.data;
       },
