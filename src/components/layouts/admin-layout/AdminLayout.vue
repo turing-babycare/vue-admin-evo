@@ -21,7 +21,10 @@
         :appName="appName"
         @showHeaderIcon="showHeaderIcon"
       ></SideMenu>
-      <a-layout class="admin-layout-wrap beauty-scroll">
+      <a-layout
+        class="admin-layout-wrap beauty-scroll"
+        :style="{ 'background-image': `url(${base64})` }"
+      >
         <a-layout-content class="content">
           <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
           <div class="admin-layout-content beauty-scroll">
@@ -39,6 +42,7 @@ import SideMenu from './SideMenu';
 import BreadCrumb from '@/components/BreadCrumb';
 import AdminHeader from './AdminHeader';
 import BlankLayout from '../BlankLayout';
+import client from '@/utils/client';
 export default {
   props: {
     appName: {
@@ -56,6 +60,7 @@ export default {
   },
   data() {
     return {
+      base64: '',
       headerStyle: 'flex: 0 0 64px;',
       showIcon: true,
       collapsed: false,
@@ -117,6 +122,14 @@ export default {
     toggleCollapse() {
       this.collapsed = !this.collapsed;
     }
+  },
+  async mounted() {
+    const { base64 } = await client.get('/v2/admin/watermark');
+    this.base64 = base64;
+    // this.$nextTick(() => {
+    //   console.log(this.$refs.content);
+    //   window.testContent = this.$refs.content;
+    // });
   }
 };
 </script>
