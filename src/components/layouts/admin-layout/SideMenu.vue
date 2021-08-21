@@ -122,7 +122,6 @@ export default {
         return o.meta && !o.meta.hidden;
       });
       this.$emit('showHeaderIcon', this.showMenu.length ? true : false);
-      console.log(222222, this.showMenu);
     },
     setDefaultKey() {
       this.defaultOpenKeys.push(this.$route.path);

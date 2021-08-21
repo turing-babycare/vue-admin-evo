@@ -28,6 +28,7 @@
         <a-layout-content class="content">
           <BreadCrumb :breadcrumb="breadcrumb"></BreadCrumb>
           <div class="admin-layout-content beauty-scroll">
+            <Index v-if="isRoot">{{ appName }}</Index>
             <BlankLayout></BlankLayout>
             <p v-show="false" class="build_id">{{ buildId }}</p>
           </div>
@@ -42,21 +43,24 @@ import SideMenu from './SideMenu';
 import BreadCrumb from '@/components/BreadCrumb';
 import AdminHeader from './AdminHeader';
 import BlankLayout from '../BlankLayout';
+import Index from './Index.vue';
 import client from '@/utils/client';
+import { get } from '@/utils/options';
 export default {
-  props: {
-    appName: {
-      type: String,
-      require,
-      default: ''
-    }
-  },
+  // props: {
+  //   appName: {
+  //     type: String,
+  //     require,
+  //     default: ''
+  //   }
+  // },
   name: 'AdminLayout',
   components: {
     SideMenu,
     BlankLayout,
     AdminHeader,
-    BreadCrumb
+    BreadCrumb,
+    Index
   },
   data() {
     return {
@@ -69,13 +73,29 @@ export default {
     };
   },
   computed: {
+    appName() {
+      return get('options').appName;
+    },
+    isRoot() {
+      return this.$route.path === '/';
+    },
     buildId() {
       return process.env.VUE_APP_BUILD_ID;
+    },
+    userInfo() {
+      return this.$store.state.evo.userInfo;
     },
     menuData() {
       // 只隐藏当前路由
       const allRoute = this.$router.options.routes || [];
-      const showRouter = this.setMenu(allRoute);
+      const authRoute = this.userInfo.authInfo?.find(
+        i => i.name === this.appName
+      );
+      const showRouter = this.setMenu(
+        allRoute[0].children.filter(i =>
+          authRoute?.children?.find(item => item.path === i.path)
+        )
+      );
       return showRouter;
     },
     breadcrumb() {
@@ -84,8 +104,7 @@ export default {
       if (breadcrumb?.length) {
         return breadcrumb;
       } else {
-        console.log(this.$route.matched);
-        return this.$route.matched;
+        return this.$route.matched.filter((_i, index) => index !== 0);
       }
     }
   },
@@ -94,18 +113,19 @@ export default {
       this.showIcon = val;
     },
     setMenu(menuArr) {
+      const menu = [];
       menuArr.forEach(item => {
         const meta = item.meta;
         // 若当前项，meta.hidden不为true
         if (meta && !meta.hidden) {
-          this.showMenu.push(item);
+          menu.push(item);
         } else if (meta && meta.hidden && item.children?.length) {
           // 若当前项 meta.hidden:true ,且存在children项
           // this.showMenu.push(item);
           const unhide = item.children.find(iitem => {
             if (iitem.meta && !iitem.meta.hidden) {
               // push children中meta.hidden不为true的那一项
-              this.showMenu.push(iitem);
+              menu.push(iitem);
             } else {
               // 返回子项中meta.hidden为true的项，去递归判断子项
               return iitem;
@@ -116,8 +136,7 @@ export default {
           }
         }
       });
-      console.log('menuData==', this.showMenu);
-      return this.showMenu;
+      return menu;
     },
     toggleCollapse() {
       this.collapsed = !this.collapsed;

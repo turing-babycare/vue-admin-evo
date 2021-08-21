@@ -1,7 +1,7 @@
 import Vuex, { Store } from 'vuex';
 import VueRouter from 'vue-router';
 import { evo, EvoState } from '@/store';
-import { after, before } from './router';
+import { after, before, UnauthorizedRoute } from './router';
 import { initClient } from './client';
 import { set } from './options';
 export interface BootstrapOptions {
@@ -28,6 +28,7 @@ export default function bootstrap(options: BootstrapOptions) {
     baseURL: options.clientBaseURL
   });
   options.store.registerModule('evo', evo);
+  options.router.addRoutes([UnauthorizedRoute]);
   options.router.beforeEach(before(options));
   options.router.afterEach(after());
 }

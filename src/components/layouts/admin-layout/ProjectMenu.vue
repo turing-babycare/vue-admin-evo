@@ -6,9 +6,9 @@
       @click="handleClick"
       style="box-shadow:none;"
     >
-      <a-menu-item :key="item.key" v-for="item in options">
+      <a-menu-item :key="item.id" v-for="item in options">
         <a :href="item.url + '?__token=' + userInfo.token" target="_blank">{{
-          item.text
+          item.name
         }}</a>
       </a-menu-item>
     </a-menu>

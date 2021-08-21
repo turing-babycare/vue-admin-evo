@@ -68,7 +68,7 @@ export default {
       return this.$store.state.evo.userInfo;
     },
     projectData() {
-      return this.user.navigation || [];
+      return this.user.authInfo || [];
     }
   },
   methods: {

@@ -13,12 +13,17 @@ export interface UserInfo {
     id: number;
     userid: string;
   };
-  navigation: {
-    key: string;
-    text: string;
-    url: string;
-  }[];
+  authInfo: AuthInfo[];
   token: string;
+  order: string[];
+}
+
+export interface AuthInfo {
+  name: string;
+  path: string;
+  id: string;
+  url: string;
+  children?: AuthInfo[];
 }
 
 export interface EvoState {
@@ -30,10 +35,11 @@ export const state: EvoState = {
     avatar: '',
     id: NaN,
     name: '',
-    navigation: [
+    authInfo: [
       {
-        key: '',
-        text: '',
+        name: '',
+        path: '',
+        id: '',
         url: ''
       }
     ],
@@ -43,7 +49,8 @@ export const state: EvoState = {
     ws_token: {
       ns: '',
       token: ''
-    }
+    },
+    order: []
   }
 };
 
