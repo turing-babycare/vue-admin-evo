@@ -28,7 +28,6 @@ export default class Request {
     }
   }
   public init(options: RequestOptions) {
-    console.log(options, 'options');
     const title = '操作失败';
     const axios = Axios.create({
       baseURL: options.baseURL

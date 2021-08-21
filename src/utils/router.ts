@@ -36,7 +36,7 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
     delete to.query['__token'];
     // next();
   }
-  console.log(to);
+  // console.log(to);
   const token = getToken();
   if (!token && !to.meta.loginPage && !to.meta.skipLogin) {
     console.log('无token');
