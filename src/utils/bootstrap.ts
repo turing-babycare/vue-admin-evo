@@ -28,7 +28,13 @@ export default function bootstrap(options: BootstrapOptions) {
     baseURL: options.clientBaseURL
   });
   options.store.registerModule('evo', evo);
-  options.router.addRoutes([UnauthorizedRoute]);
+  if (options.router.addRoutes) {
+    options.router.addRoutes([UnauthorizedRoute]);
+  } else {
+    // // @ts-ignore
+    // options.router?.addRoute(UnauthorizedRoute);
+    // console.log(options.router);
+  }
   options.router.beforeEach(before(options));
   options.router.afterEach(after());
 }

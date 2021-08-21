@@ -65,7 +65,7 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
     } else {
       const pagePath = to.matched.length
         ? to.matched[to.matched.length - 1].path
-        : '/';
+        : to.fullPath;
       const {
         res: { status }
       } = (await client.get('/v2/admin/permission/verify', {
