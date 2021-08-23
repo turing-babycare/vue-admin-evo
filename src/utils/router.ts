@@ -75,7 +75,7 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
       } = (await client.get('/v2/admin/permission/verify', {
         params: { name: options.appName, path: pagePath }
       })) as any;
-      status ? next() : next({ path: '401' });
+      status ? next() : next({ path: '/401' });
     }
   }
 };
