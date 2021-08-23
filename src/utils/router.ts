@@ -60,7 +60,11 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
     //     i => i.name === options.appName
     //   )[0].children
     // );
-    if (to.path === '/' || to.path === '/401') {
+    if (
+      to.path === '/' ||
+      to.path === '/401' ||
+      options.appName === '登陆管理'
+    ) {
       next();
     } else {
       const pagePath = to.matched.length
