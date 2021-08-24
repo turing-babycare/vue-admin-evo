@@ -30,11 +30,11 @@ export default function bootstrap(options: BootstrapOptions) {
   options.store.registerModule('evo', evo);
   if (options.router.addRoutes) {
     options.router.addRoutes([UnauthorizedRoute]);
+    options.router.beforeEach(before(options));
+    options.router.afterEach(after());
   } else {
     // // @ts-ignore
     // options.router?.addRoute(UnauthorizedRoute);
     // console.log(options.router);
   }
-  options.router.beforeEach(before(options));
-  options.router.afterEach(after());
 }

@@ -1,5 +1,6 @@
 import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getToken, removeToken } from './auth';
+import { get } from './options';
 // import { message, Modal } from 'ant-design-vue';
 
 export interface RequestOptions {
@@ -64,10 +65,14 @@ export default class Request {
           error.message = msg;
           if (response.status === 401) {
             options.$message.warning('登录超时，请重新登录!');
-            setTimeout(() => {
-              removeToken();
-              location.reload();
-            }, 1000);
+            const url = `${get('options').loginHost}/login?oauth_callback=${
+              window.location.href
+            }`;
+            window.location.replace(url);
+            // setTimeout(() => {
+            //   removeToken();
+            //   location.reload();
+            // }, 1000);
           } else if (response.status === 500 || response.data.code === 500) {
             this.getModal(options.$modal, title, `${msg} ${id}`);
           } else {
