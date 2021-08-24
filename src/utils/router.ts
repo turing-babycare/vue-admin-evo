@@ -34,6 +34,14 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
       options.store.commit('evo/setUserInfo', res);
     });
     delete to.query['__token'];
+    next({
+      // name: to.name as string,
+      path: _from.path,
+      // hash: to.hash,
+      query: to.query,
+      params: to.params
+    });
+    return;
     // next();
   }
   // console.log(to);
