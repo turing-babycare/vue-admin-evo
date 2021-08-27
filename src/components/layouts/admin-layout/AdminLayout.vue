@@ -91,10 +91,13 @@ export default {
       const authRoute = this.userInfo.authInfo?.find(
         i => i.name === this.appName
       );
+      const showMenu = get('options').showMenu;
       const showRouter = this.setMenu(
-        allRoute[0].children.filter(i =>
-          authRoute?.children?.find(item => item.path === i.path)
-        )
+        showMenu
+          ? allRoute
+          : allRoute[0].children.filter(i =>
+              authRoute?.children?.find(item => item.path === i.path)
+            )
       );
       return showRouter;
     },
