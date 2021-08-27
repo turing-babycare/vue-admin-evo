@@ -68,6 +68,7 @@ export default class Request {
             const url = `${get('options').loginHost}/login?oauth_callback=${
               window.location.href
             }`;
+            removeToken();
             window.location.replace(url);
             // setTimeout(() => {
             //   removeToken();
