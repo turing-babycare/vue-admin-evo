@@ -92,13 +92,14 @@ export default {
         i => i.name === this.appName
       );
       const showMenu = get('options').showMenu;
-      const showRouter = this.setMenu(
-        showMenu
-          ? allRoute
-          : allRoute[0].children.filter(i =>
+      const showRouter = showMenu
+        ? allRoute
+        : this.setMenu(
+            allRoute[0].children.filter(i =>
               authRoute?.children?.find(item => item.path === i.path)
             )
-      );
+          );
+      console.log(showRouter, 'showRouter');
       return showRouter;
     },
     breadcrumb() {
