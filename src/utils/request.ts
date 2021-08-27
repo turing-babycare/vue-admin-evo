@@ -66,7 +66,7 @@ export default class Request {
           if (response.status === 401) {
             options.$message.warning('登录超时，请重新登录!');
             const url = `${get('options').loginHost}/login?oauth_callback=${
-              window.location.href
+              window.location.origin
             }`;
             removeToken();
             window.location.replace(url);
