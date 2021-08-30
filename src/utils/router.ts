@@ -4,6 +4,7 @@ import client from './client';
 import { BootstrapOptions } from './bootstrap';
 import NProgress from 'nprogress';
 import Unauthorized from '@/components/Unauthorized.vue';
+import { get } from '@/utils/options';
 // import { AuthInfo } from '@/store';
 // import { flatten } from './time';
 
@@ -75,15 +76,20 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
     ) {
       next();
     } else {
-      const pagePath = to.matched.length
-        ? to.matched[to.matched.length - 1].path
-        : to.fullPath;
-      const {
-        res: { status }
-      } = (await client.get('/v2/admin/permission/verify', {
-        params: { name: options.appName, path: pagePath }
-      })) as any;
-      status ? next() : next({ path: '/401' });
+      const showMenu = get('options').showMenu;
+      if (showMenu) {
+        next();
+      } else {
+        const pagePath = to.matched.length
+          ? to.matched[to.matched.length - 1].path
+          : to.fullPath;
+        const {
+          res: { status }
+        } = (await client.get('/v2/admin/permission/verify', {
+          params: { name: options.appName, path: pagePath }
+        })) as any;
+        status ? next() : next({ path: '/401' });
+      }
     }
   }
 };

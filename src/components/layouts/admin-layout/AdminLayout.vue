@@ -99,7 +99,6 @@ export default {
               authRoute?.children?.find(item => item.path === i.path)
             )
           );
-      console.log(showRouter, 'showRouter');
       return showRouter;
     },
     breadcrumb() {
