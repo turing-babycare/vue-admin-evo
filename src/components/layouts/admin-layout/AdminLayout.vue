@@ -93,7 +93,7 @@ export default {
       );
       const showMenu = get('options').showMenu;
       const showRouter = showMenu
-        ? allRoute
+        ? allRoute[0].children
         : this.setMenu(
             allRoute[0].children.filter(i =>
               authRoute?.children?.find(item => item.path === i.path)
