@@ -7,6 +7,7 @@ import { set } from './options';
 export interface BootstrapOptions {
   appName?: string;
   clientBaseURL: string;
+  requestURL?: string;
   wsBaseURL: string;
   loginHost: string;
   logoutURL?: string;
@@ -25,7 +26,8 @@ export default function bootstrap(options: BootstrapOptions) {
   initClient({
     $message: options.$message,
     $modal: options.$modal,
-    baseURL: options.clientBaseURL
+    baseURL: options.clientBaseURL,
+    requestURL: options.clientBaseURL
   });
   options.store.registerModule('evo', evo);
   if (options.router.addRoutes) {

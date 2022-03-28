@@ -127,6 +127,7 @@ Vue.use(Evo, {
   wsBaseURL: '',
   loginHost: process.env.VUE_APP_LOGIN_URL, // 登录项目域名
   clientBaseURL: process.env.VUE_APP_API_BASE_URL, // 接口根域名
+  requestURL:process.env.VUE_APP_API_REQUEST_URL,//新接口域名
   userInfoPath: '/v2/admin/userinfo', // 获取用户信息接口路径
   onlineStatusPath: '/v2/admin/online-state', // 上下线接口路径
   $message: Vue.prototype.$message, // message组件

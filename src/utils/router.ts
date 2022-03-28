@@ -92,6 +92,11 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
       }
     }
   }
+  await client
+    .post(`${options.requestURL}/point`, { data: { path: to.path } })
+    .then(res => {
+      console.log('埋点成功', res);
+    });
 };
 type afterHook = (to: Route, from: Route) => any;
 

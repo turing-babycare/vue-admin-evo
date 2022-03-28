@@ -5,11 +5,14 @@ import { get } from './options';
 
 export interface RequestOptions {
   baseURL: string;
+  requestURL?: string;
   $message: any;
   $modal: any;
 }
 export interface RequestConfig extends AxiosRequestConfig {
   mock?: string;
+  data?: any;
+  params?: any;
 }
 export default class Request {
   public axios: AxiosInstance;
