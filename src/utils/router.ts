@@ -7,7 +7,6 @@ import Unauthorized from '@/components/Unauthorized.vue';
 import { get } from '@/utils/options';
 // import { AuthInfo } from '@/store';
 // import { flatten } from './time';
-
 NProgress.configure({ showSpinner: false });
 
 // const checkAuth = ({ path, matched }: Route, auth?: AuthInfo[]) => {
@@ -92,11 +91,11 @@ export const before = (options: BootstrapOptions): NavigationGuard => async (
       }
     }
   }
-  await client
-    .post(`${options.requestURL}/point`, { data: { path: to.path } })
-    .then(res => {
-      console.log('埋点成功', res);
+  if (to?.path !== '/' && options?.requestURL) {
+    await client.post(`${options.requestURL}/point`, {
+      data: { path: to.path }
     });
+  }
 };
 type afterHook = (to: Route, from: Route) => any;
 
