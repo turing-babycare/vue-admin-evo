@@ -1,6 +1,6 @@
 {
   "name": "vue-admin-evo",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "scripts": {
     "serve": "nodemon --watch ./ --ext ts,js,css,vue --ignore dist --exec \"npm run build\"",
     "build": "vue-cli-service build --target lib ./src/index.ts",
